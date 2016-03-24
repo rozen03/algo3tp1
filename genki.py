@@ -61,11 +61,9 @@ def si_la_tiro_aca_mueren(i):
 
 print "Enemigos:"
 print enemigos
-
 #i=1
 sols = []
 i=0
-
 while i <N-1:
 	j=i
 	while ((j<N) and mata(j,i)):
