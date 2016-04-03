@@ -1,6 +1,22 @@
 #include"kamehameha.h"
 
 int main(int argc, char* argv[]){
+    if(argc > 1){
+        string s(argv[1]);
+        if(s == "--test"){
+            if(argc != 6){
+		cout << "Modo de uso: ./kamehameha --test \"repeticiones\" \"cantidad\" \"n inicial\" \"incremento\" " << endl;
+		return 0;
+	        }
+            repeticiones = atoi(argv[2]);
+            cantidad = atoi(argv[3]);
+            n_inicial = atoi(argv[4]);
+	        incremento = atoi(argv[5]);
+            runTest();
+        }
+        return 0;
+    }
+
     // Chequeo si se llamo correctamente al programa
 	if(isatty(STDIN_FILENO)){
 		cout << "Modo de uso: echo \"entrada\" | ./kamehameha" << endl;
@@ -149,5 +165,38 @@ void backtrack(){
                 }
             }
         }
+    }
+}
+
+void runTest(){
+    stringstream ss;
+    generar(ss,repeticiones,cantidad,n_inicial,incremento);
+    microseconds duration(0);
+    int instancia = 0;
+    char letra = ss.peek();
+	while(letra != '#'){
+        // Entrada
+		int n;
+        ss >> n;
+        REMAINING_ANDROIDS = n;
+        enemies.clear();
+        for(int i=0; i < n; i++){
+            int x,y;
+            ss >> x;
+            ss >> y;
+            enemies.push_back(Android(x,y));
+        }
+        instancia ++;
+        high_resolution_clock::time_point t1 = high_resolution_clock::now();     
+        backtrack();
+        high_resolution_clock::time_point t2 = high_resolution_clock::now();
+        duration += duration_cast<microseconds>( t2 - t1 );
+        if(instancia == repeticiones){
+            cout << n << ' ' << uint64_t(duration.count() / instancia) << '\n';
+            instancia = 0;
+            duration = microseconds(0);
+        }
+        letra = ss.get(); // come el '\n'
+		letra = ss.peek();
     }
 }
