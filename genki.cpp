@@ -1,9 +1,9 @@
 #include <iostream>      /* printf */
 #include <stdlib.h>     /* atoi */
 using namespace std;
-
+//se fija si, si tiro en el i +t mata a j
 #define mata(i, j) \
-				((enemigos[j][0] <= enemigos[i][0]+ t) & ((enemigos[j][1] ) <= enemigos[i][1]+t))
+				((enemigos[j][0] <= enemigos[i][0]+ t) && ((enemigos[j][1] ) <= enemigos[i][1]+t))
 
 
 int main(int argc, char* argv[]) {
@@ -16,7 +16,7 @@ int main(int argc, char* argv[]) {
 	int index_sols = 0;
 	int hasta_j = 0;
 	int i;
-	int x,y;
+	int x, y;
 	for (i = 0; i < n; i++) {
 		cin >> enemigos[i][0];
 		cin >> enemigos[i][1];
@@ -28,17 +28,16 @@ int main(int argc, char* argv[]) {
 			j++;
 		j--;
 		//tiro la genkidama
-		sols[index_sols] = j+1;
+		sols[index_sols] = j + 1;
 		index_sols++;
 		//me fijo hasta donde llega
 		hasta_j = i;
 		while (hasta_j < n and mata(i, hasta_j))
 			hasta_j++;
 		i = hasta_j;
-
 	}
-	cout<<index_sols<<"\n";
-	for(i=0; i<index_sols;i++){
-		cout<<sols[i]<<" ";
+	cout << index_sols << "\n";
+	for (i = 0; i < index_sols; i++) {
+		cout << sols[i] << " ";
 	}
 }
