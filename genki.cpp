@@ -24,15 +24,15 @@ int main(int argc, char* argv[]) {
 	i = 0;
 	while (i < n) {
 		j = i;
-		while ((j < n) and mata(j, i))
+		while ((j < n) && mata(j, i))
 			j++;
 		j--;
 		//tiro la genkidama
 		sols[index_sols] = j + 1;
 		index_sols++;
 		//me fijo hasta donde llega
-		hasta_j = i;
-		while (hasta_j < n and mata(i, hasta_j))
+		hasta_j = j;
+		while (hasta_j < n && mata(j, hasta_j))
 			hasta_j++;
 		i = hasta_j;
 	}
