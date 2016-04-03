@@ -2,9 +2,13 @@
 #include <string>
 #include <vector>
 #include <sstream>
-#include<unistd.h>
+#include <unistd.h>
+#include <chrono>
+#include "kamehamehaGenerator.h"
 
 using namespace std;
+using namespace std::chrono;
+
 
 struct Android{
     int posX;
@@ -41,6 +45,10 @@ int PARTIAL_KAMEHAMEHA = 0;
 int REMAINING_ANDROIDS;
 vector<Android> enemies;
 vector<Android> SOLUTION;
+int repeticiones = 0;
+int cantidad = 0;
+int n_inicial = 0;
+int incremento = 0;
 
 
 int destroy(Android* a, Android* b);
@@ -49,3 +57,4 @@ int restore(Android* a, Android* b);
 int restore(Android* a);
 double getAngle(Android a, Android b);
 void backtrack();
+void runTest();
