@@ -31,14 +31,21 @@ int main(int argc, char* argv[]){
     return 0;
 }
 
-int verticalDestroy(Android a){
+int destroy(Android* a, Android* b){
     int res = 0;
     stringstream ss;
-    ss << "destroyed(" << a.posX << "," << a.posY << ")";
+    ss << "destroyed(" << a->posX << "," << a->posY << ";"<< b->posX << "," << b->posY << ")";
     string s = ss.str();
+    a->state = s;
+    a->kame = PARTIAL_KAMEHAMEHA;
+    res ++;
+    b->state = s;
+    b->kame = PARTIAL_KAMEHAMEHA;
+    res ++;
+    double angle = getAngle(*a,*b);
     for(vector<Android>::iterator it = enemies.begin(); it != enemies.end(); ++it){ //O(n)
-        if(it->posX == a.posX){
-            if(it->state == "active"){
+        if(it->state == "active"){
+            if(angle == getAngle(*a,*it)){
                 it->state = s;
                 it->kame = PARTIAL_KAMEHAMEHA;
                 res ++;
@@ -48,31 +55,30 @@ int verticalDestroy(Android a){
     return res;
 }
 
-int horizontalDestroy(Android a){
+int destroy(Android* a){
     int res = 0;
     stringstream ss;
-    ss << "destroyed(" << a.posX << "," << a.posY << ")";
+    ss << "destroyed(" << a->posX << "," << a->posY << ")";
     string s = ss.str();
-    for(vector<Android>::iterator it = enemies.begin(); it != enemies.end(); ++it){ //O(n)
-        if(it->posY == a.posY){
-            if(it->state == "active"){
-                it->state = s;
-                it->kame = PARTIAL_KAMEHAMEHA;
-                res ++;
-            }
-        }
-    }
+    a->state = s;
+    a->kame = PARTIAL_KAMEHAMEHA;
+    res ++;
     return res;
 }
 
-int horizontalRestore(Android a){
+int restore(Android* a, Android* b){
     int res = 0;
     stringstream ss;
-    ss << "destroyed(" << a.posX << "," << a.posY << ")";
+    ss << "destroyed(" << a->posX << "," << a->posY << ";"<< b->posX << "," << b->posY << ")";
     string s = ss.str();
+    a->state = "active";
+    res ++;
+    b->state = "active";
+    res ++;
+    double angle = getAngle(*a,*b);
     for(vector<Android>::iterator it = enemies.begin(); it != enemies.end(); ++it){ //O(n)
-        if(it->posY == a.posY){
-            if(it->state == s){
+        if(it->state == s){
+            if(angle == getAngle(*a,*it)){
                 it->state = "active";
                 res ++;
             }
@@ -81,47 +87,65 @@ int horizontalRestore(Android a){
     return res; //cantidad restaurada
 }
 
-int verticalRestore(Android a){
+int restore(Android* a){
     int res = 0;
     stringstream ss;
-    ss << "destroyed(" << a.posX << "," << a.posY << ")";
+    ss << "destroyed(" << a->posX << "," << a->posY << ")";
     string s = ss.str();
-    for(vector<Android>::iterator it = enemies.begin(); it != enemies.end(); ++it){ //O(n)
-        if(it->posX == a.posX){
-            if(it->state == s){
-                it->state = "active";
-                res ++;
-            }
-        }
-    }
+    a->state = "active";
+    res ++;
     return res; //cantidad restaurada
+}
+
+double getAngle(Android a, Android b){
+    int y = a.posY - b.posY;
+    int x = a.posX - b.posX;
+    if(x == 0){
+        return 9999;
+    }
+    else{
+        return y/double(x);
+    }
 }
 
 void backtrack(){
     if(REMAINING_ANDROIDS == 0){
         BEST_KAMEHAMEHA = PARTIAL_KAMEHAMEHA;    //mejor solucion encontrada hasta ahora
+        SOLUTION.clear();
         SOLUTION = enemies;
+    }
+    else if(REMAINING_ANDROIDS == 1){
+        if(PARTIAL_KAMEHAMEHA + 1 < BEST_KAMEHAMEHA){   //poda: a lo sumo es igual a la mejor solucion encontrada
+            for(vector<Android>::iterator it = enemies.begin(); it != enemies.end(); ++it){ //O(n)
+                if(it->state == "active"){
+                    PARTIAL_KAMEHAMEHA ++;
+                    int res = destroy(&(*it));
+                    REMAINING_ANDROIDS -= res;
+                    backtrack();
+                    res = restore(&(*it));  //volmemos a como estaba antes
+                    REMAINING_ANDROIDS += res;
+                    PARTIAL_KAMEHAMEHA --;
+                }    
+            }
+        }
     }
     else{
         for(vector<Android>::iterator it = enemies.begin(); it != enemies.end(); ++it){ //O(n)
             if(it->state == "active"){    //poda: solo seguimos si no esta destruido
-                if(PARTIAL_KAMEHAMEHA + 1 < BEST_KAMEHAMEHA){   //poda: a lo sumo es igual a la mejor solucion encontrada
-                    PARTIAL_KAMEHAMEHA ++;
-                    int res = horizontalDestroy(*it);  //destruimos todos los androides en la misma fila
-                    REMAINING_ANDROIDS -= res;
-                    backtrack();
-                    res = horizontalRestore(*it);  //volmemos a como estaba antes
-                    REMAINING_ANDROIDS += res;
-                    PARTIAL_KAMEHAMEHA --;
-                }
-                if(PARTIAL_KAMEHAMEHA + 1 < BEST_KAMEHAMEHA){
-                    PARTIAL_KAMEHAMEHA ++;
-                    int res = verticalDestroy(*it);    //destruimos todos los androides en la misma columna
-                    REMAINING_ANDROIDS -= res;
-                    backtrack();
-                    res = verticalRestore(*it);    //volvemos a como estaba antes
-                    REMAINING_ANDROIDS += res;
-                    PARTIAL_KAMEHAMEHA --;
+                for(vector<Android>::iterator itt = enemies.begin(); itt != enemies.end(); ++itt){ //O(n)
+                    if(itt->state == "active"){    //poda: solo seguimos si no esta destruido
+                        if(it != itt){ //poda: no tiene sentido iterar sobre si mismo
+                            if(PARTIAL_KAMEHAMEHA + 1 < BEST_KAMEHAMEHA){   //poda: a lo sumo es igual a la mejor solucion encontrada
+                                PARTIAL_KAMEHAMEHA ++;
+                                int res = destroy(&(*it),&(*itt));  //destruimos todos los androides en la recta entre it e itt
+                                REMAINING_ANDROIDS -= res;
+                                backtrack();
+                                res = restore(&(*it),&(*itt));  //volmemos a como estaba antes
+                                REMAINING_ANDROIDS += res;
+                                PARTIAL_KAMEHAMEHA --;
+                            }
+                        }
+                    }
                 }
             }
         }

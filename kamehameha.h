@@ -27,6 +27,12 @@ struct Android{
         ss << posY;
         return ss.str();
     }
+    bool operator=(const Android& a) const{	//operator overload para "="
+		if (posX == a.posX && posY == a.posY){	
+			return true;
+		}
+		return false;
+	}
 };
 
 // variable globales
@@ -37,8 +43,9 @@ vector<Android> enemies;
 vector<Android> SOLUTION;
 
 
-int verticalDestroy(Android a);
-int verticalRestore(Android a);
-int horizontalDestroy(Android a);
-int horizontalRestore(Android a);
+int destroy(Android* a, Android* b);
+int destroy(Android* a);
+int restore(Android* a, Android* b);
+int restore(Android* a);
+double getAngle(Android a, Android b);
 void backtrack();
