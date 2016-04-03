@@ -1,7 +1,7 @@
 #!/usr/bin/python
 import math
 
-N = 10
+N = 8
 
 global matriz_de_test 
 global bando_uno

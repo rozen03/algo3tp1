@@ -34,11 +34,6 @@ for i in range(N):
 #testList2 = [(elem1, log(elem2)) for elem1, elem2 in enemigos]
 #plt.scatter(*zip(*testList2))
 #plt.show()
-def se_matan(i,j):
-	global T
-	global enemigos
-	#return ((enemigos[i][0] <= enemigos[j][0]+ T) & ((enemigos[i][1] ) <= enemigos[j][1]+T)) | ((enemigos[j][0] <= enemigos[i][0]+ T) & ((enemigos[j][1] ) <= enemigos[i][1]+T))
-	return mata(i,j) | mata(j,i)
 def mata(i,j):
 	global T
 	global enemigos
@@ -52,9 +47,6 @@ def si_la_tiro_aca_mueren(i):
 	desde=i
 	while hasta<N and mata(i,hasta):
 		hasta= hasta+ 1
-	#desde cual mata
-	while 0<desde and mata(i,desde):
-		desde=desde -1
 	return (desde,hasta-1)	
 
 
@@ -72,5 +64,6 @@ while i <N-1:
 	mueren_con_j = si_la_tiro_aca_mueren(j)
 	sols.append(enemigos[j])
 	i=mueren_con_j[1]+1
+
 print "soluciones: ",sols
 print  "#Soluciones: ",len(sols)
