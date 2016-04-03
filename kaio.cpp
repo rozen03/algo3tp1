@@ -4,9 +4,10 @@
 using namespace std;
 
 int main(int argc, char* argv[]) {
-	int n = atoi(argv[1]);
+	//int n = atoi(argv[1]);
+	int n;
+	cin>>n;
 	int rango = (int)(log(n) / log(2)) + 2;
-	//cout<<(int)pow(2, rango - 2);
 	if (n == (int)pow(2, rango - 2))
 		rango -= 1;
 	cout << rango - 1 << "\n";
