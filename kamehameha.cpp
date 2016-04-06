@@ -35,11 +35,14 @@ int main(int argc, char* argv[]){
     cout << BEST_KAMEHAMEHA << '\n';
     vector<string> output(BEST_KAMEHAMEHA);
     vector<int> defeated(BEST_KAMEHAMEHA);
+    int index = 1;
     for(vector<Android>::iterator it = SOLUTION.begin(); it != SOLUTION.end(); ++it){
         int i = it->kame -1;
-        output[i].append(it->X()+' ');
-        output[i].append(it->Y()+' ');
-        defeated[i] ++; 
+//        output[i].append(it->X()+' ');
+//        output[i].append(it->Y()+' ');
+        output[i].append(to_string(index) + ' ');
+        defeated[i] ++;
+        index++; 
     }
     for(uint i=0; i < output.size(); i++){
         cout << defeated[i] << ' ' << output[i] << '\n';
