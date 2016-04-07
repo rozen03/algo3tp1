@@ -1,0 +1,21 @@
+Funcion Genkidama(vector Enemigos)
+	CantSoluciones = 0
+	Para i := 0 hasta Len(Enemigos)
+		j := i+1
+		Mientras (Pos(i) <= Pos(j) + t)
+			j++
+		Fin Mientras
+		Soluciones[cantSoluciones] := j-1
+		cantSoluciones++
+		k := j+1
+		Mientras(Pos(k) <= Pos(j) + t)
+			k++
+		Fin Mientras
+		i := k	
+	Fin Para
+
+	Print cantSoluciones
+	Para i := 0 hasta cantSoluciones
+		Print Soluciones[i]
+	Fin Para
+Fin
