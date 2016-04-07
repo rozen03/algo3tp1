@@ -173,7 +173,26 @@ void backtrack(){
 
 void runTest(){
     stringstream ss;
-    generar(ss,repeticiones,cantidad,n_inicial,incremento);
+    generar(ss,repeticiones,cantidad,n_inicial,incremento,BEST);
+    cout << "BEST CASE" << endl;
+    cout << '\n';
+    measure(ss);
+    ss.str("");
+    generar(ss,repeticiones,cantidad,n_inicial,incremento,AVERAGE);
+    cout << '\n';
+    cout << "AVERAGE CASE" << endl;
+    cout << '\n';
+    measure(ss);
+    ss.str("");
+    repeticiones = 1;   //takes too much time otherwise
+    generar(ss,repeticiones,cantidad,n_inicial,incremento,WORST);
+    cout << '\n';
+    cout << "WORST CASE" << endl;
+    cout << '\n';
+    measure(ss);
+}
+
+void measure(stringstream& ss){
     microseconds duration(0);
     int instancia = 0;
     char letra = ss.peek();
@@ -182,6 +201,8 @@ void runTest(){
 		int n;
         ss >> n;
         REMAINING_ANDROIDS = n;
+        BEST_KAMEHAMEHA = 9999;
+        PARTIAL_KAMEHAMEHA = 0;
         enemies.clear();
         for(int i=0; i < n; i++){
             int x,y;
@@ -195,7 +216,7 @@ void runTest(){
         high_resolution_clock::time_point t2 = high_resolution_clock::now();
         duration += duration_cast<microseconds>( t2 - t1 );
         if(instancia == repeticiones){
-            cout << n << ' ' << uint64_t(duration.count() / instancia) << '\n';
+            cout << n << ' ' << duration.count() / instancia << '\n';
             instancia = 0;
             duration = microseconds(0);
         }

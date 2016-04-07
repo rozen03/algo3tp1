@@ -6,6 +6,7 @@
 #include <chrono>
 #include "kamehamehaGenerator.h"
 
+
 using namespace std;
 using namespace std::chrono;
 
@@ -58,3 +59,4 @@ int restore(Android* a);
 double getAngle(Android a, Android b);
 void backtrack();
 void runTest();
+void measure(stringstream& ss);
