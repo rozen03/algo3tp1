@@ -1,6 +1,31 @@
 \subsubsection{Explicación del problema}
 El problema consiste en armar varias instancias de 2 bandos de peleadores de forma tal que, siempre participen todos los peleadores en cada instancia, cada peleador haya peleado contra otro al menos una vez y que la cantidad de estas instancias sea minima.
 Para resolver este problema, modelamos cada peleador con un indice, es decir numero natural.
-\subsubsection{Ideas}
+\subsubsection{Idea e implementacion}
+Para resolver el problema usaremos la tecnica de Divide \& Conquer:
+-Didivir: Instancia separamos a los peleadores segun el resto de su indice respecto a $2^k$, siendo $k$ la instancia
+-Conquista: Los agrupamos a los peleadores en 2 bandos, uno que agrupo a los luchadores segun el indice que cuyo resto sea menor a $2^k$ y el otro a los restantes.
 
-\subsubsection{Solución elegida}
+De forma tal que siempre logramos que un peleador llegue a enfrentado a cualquier otro para cuando llegamos a la cota de $k = log_2 (N)$ siendo $N$ la cantidad de peleadores
+
+
+\begin{algorithm}[h!]
+\caption{Estructura del algoritmo de D\&C}
+\begin{algorithmic}[1]
+	\Function{D\&C}{}
+	\state {defino la cantidad de instancias como la parte entera de $log_2(n)+2$}
+	\If{$N$ es potencia de $2^k$}
+		\State le resto 1 a la cantidad de instancias 
+	\EndIf
+	\For{k entre 1 y la cantidad de instancias}
+		\For{cada indice de peleador}
+        \If{el resto del indice de $2^k$ es menor a $2^{k-1}$}
+            \State el peleador va al primer bando
+        \Else
+        	\State el peleador va al segundo bando
+        \EndIf
+        \EndFor
+	\EndFor
+	\EndFunction
+\end{algorithmic}
+\end{algorithm}
