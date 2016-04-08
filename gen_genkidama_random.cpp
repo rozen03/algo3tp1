@@ -2,19 +2,77 @@
 #include <iostream>
 #include <time.h>
 #include <stdlib.h>
+#include <algorithm>
+#include <stdint.h>
 using namespace std;
+#define mata(i, j) \
+				((enemigos[j][0] <= enemigos[i][0]+ t) && ((enemigos[j][1] ) <= enemigos[i][1]+t))
 
-int main(int argc, char *argv[]) {
-	int n, t;
-	srand(time(NULL));
-	t = rand() % 50;
-	srand(time(NULL) + t % 100);
-	n = rand() % 100000;
-	cout << n << endl << t << endl;
-	int j = n;
-	for (int i = 0; j < n; j++) {
-		cout << j-- << endl;
-		cout << i << endl;
+int genki(int t, int n, int x[], int y[] ) {
+	//cin >> n >> t;
+	int enemigos[n][2];
+	for (int i = 0; i < n; i++) {
+		enemigos[i][0] = x[i];
+		enemigos[i][1] = y[i];
+	}
+	int sols[n];
+	int j;
+	int index_sols = 0;
+	int hasta_j = 0;
+	int i;
+	i = 0;
+	while (i < n) {
+		j = i;
+		while ((j < n) && mata(j, i))
+			j++;
+		j--;
+		//tiro la genkidama
+		sols[index_sols] = j + 1;
+		index_sols++;
+		//me fijo hasta donde llega
+		hasta_j = j;
+		while (hasta_j < n && mata(j, hasta_j))
+			hasta_j++;
+		i = hasta_j;
+	}
+	//cout << index_sols << "\n";
+	//for (i = 0; i < index_sols; i++) {
+	//	cout << sols[i] << " ";
+//}
+}
+uint64_t rdtsc() {
+	unsigned int lo, hi;
+	__asm__ __volatile__ ("rdtsc" : "=a" (lo), "=d" (hi));
+	return ((uint64_t)hi << 32) | lo;
+}
+int main() {
+	int t, casos;
+	
+	casos = 10001;
+	for (uint n = 1; n < casos; n++) {
+		t = 2*n;
+		cout << n << " ";
+		srand(time(NULL));
+
+		t = rand() % 2*n;	//caso promedio
+		//t=0; 				//peor caso
+		//t=n*1000;			//mejor caso
+		int x[n];
+		int y[n];
+		//srand(time(NULL) + t % 100);
+		for (int i = 0; i < n; i++) {
+			x[i] = rand() % 10 * n;
+			y[i] = rand() % 10 * n;
+		}
+		sort(x, x + n, greater<int>());
+		sort(y, y + n, less<int>());
+		//clock_t begin = clock();
+		uint64_t begin = rdtsc();
+		genki(t, n, x, y);
+		//clock_t end = clock();
+		uint64_t end = rdtsc();
+		uint64_t elapsed_secs = end - begin ;// CLOCKS_PER_SEC
+		cout << elapsed_secs << "\n";
 	}
 }
 
