@@ -1,4 +1,26 @@
 \subsubsection{Pseudocódigo}
+\begin{algorithm}[h!]
+\caption{Estructura del algoritmo Goloso}
+\begin{algorithmic}[1]
+	\Function{golosa}{}
+	\While{haya enemigos}
+	 \state {tomo el primer enemigo vivo}
+	 \while{haya enemigos restantes y tirar en ese enemigo mate al primer enemigo vivo}
+	  \state {avanzo al siguiente enemigo}
+	  \EndWhile
+	  \state {guardo el ultimo enemigo q terminaria matando al primero vivo si le tiro la genkidama}
+
+		\While{hay enemigos restantes y tirar en ese enemigo mata al ultimo enemigo que mate al primer enemigo vivo}
+		\state {avanzo al siguiente enemigo}
+        \EndWhile
+	\EndWhile
+	\EndFunction
+\end{algorithmic}
+\end{algorithm}
 
 \subsubsection{Analisis}
+El algoritmo tiene un ciclo principal con dos ciclos internos,  para cada enemigo, o bien es tomado en cuenta en el primer ciclo o bien en el segundo, salvo los casos donde el enemigo no mate al primer enemigo vivo ni este sea matado por el ultimo enemigo que mata al primer enemigo vivo.
 
+Para la complejidad del algoritmo, consideramos el mejor caso el caso en que si tiramos la genkidama en cualquiera de los puntos, termina matando a todos los enemigos. y daria una complejidad de $O(N)$
+El Peor caso seeria si tirar una genkidama en cualquier enemigo termine matando a ese enemigo y solo a ese enemigo, en ese caso cada enemigo termina siendo tomado en cuenta en ambos ciclos internos y en el ciclo principal, dando una complejidad de $O(3N) = O(N)$
+Y el caso promedio que es simplemente aleatorio, consideramos tambien que esta en el orden de $O(N)$
