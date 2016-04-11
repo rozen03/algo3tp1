@@ -1,2 +1,19 @@
+Para probar la correctitud de este algoritmo hay qur probar dos cosas:
+1.que cubre todos los puntos
+2.que es el resultado minimo:
 
 
+1.Esta demostracion es trivial, es parte del algoritmo  calcular que se cubran todos los puntos
+2.lo hacemos por induccion sobre la cantidad de puntos.
+
+La hipotesis inductiva es que para N puntos el algoritmo es minimo
+
+Caso base:
+numero de puntos = 1:
+Esta demostracion es trivial. el algoritmo nos muestra que tira la genkidama en ese unico punto y no se pueden tirar menos genkidamas
+
+Caso N+1:
+Dada  la HI, si agregamos un punto mas respetando las condiciones nos quedarian tres casos:
+1.O bien la solucion planteada para los N primeros puntos alcanza para que muera el N+1 enemigo, en ese caso seguiria siendo minimo
+2.O bien si la genkidama se tiraba en el punto N, y tirarla en N+1 mataria a N, entonces  en vez de tirarse en N se tira en N+1, nuevamente dando minimo
+3.O bien el punto esta lo suficientemente lejos del resto de los puntos como para que la unica forma de matar a ese enemigo sea tirandole una genkidama a ese punto y dicha genkidama no mate a nadie, en ese caso volveria a ser un minimo por que se requeriria si o si una genkidama mas para llegar a ese punto
