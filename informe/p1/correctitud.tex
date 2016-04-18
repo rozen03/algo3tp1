@@ -1,2 +1,9 @@
+Para demostrar la correctitud del algoritmo vamos a probarlo en 3 partes.
+1.Probar que para todo par de naturales existe un k tal que sus restos son diferentes
+2.Probar que el minimo k posible para cualqueir conjunto es log(n) 
+3.probar que entonces para cada par naturales en alguna instancial van a estar en un bando o en otro 
 
-
+IDEAS:
+1.Basta con tomar K tal que 2^k >= N =>2^{k-1}, entonces el resto de cada par i,j \in [1,_,N] su resto va a ser i y j respectivamente, entonces son diferentes
+2.ese k elegido es obligatoriamente k = log_2(n), hay que ver como hablar de eso
+3.basta con pensar su representacion en binario, pensando en los kesimos bits, es cuestion de probar por absurdo que  i_k =1 y j_k=0 , usando que si todos sus coeficientes son unos o ceros en los mismos indices, entonces es el mismo numero, que eso era absurdo por la hipotesis
