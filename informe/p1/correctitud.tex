@@ -1,9 +1,18 @@
 Para demostrar la correctitud del algoritmo vamos a probarlo en 3 partes.
 1.Probar que para todo par de naturales existe un k tal que sus restos son diferentes
 2.Probar que el minimo k posible para cualqueir conjunto es log(n) 
-3.probar que entonces para cada par naturales en alguna instancial van a estar en un bando o en otro 
+3.probar que entonces para cada par naturales en alguna instancial van a estar en un bando o en otro, 
 
-IDEAS:
+
+Prologo: En la modelacion del problema, representamos cada peleador con un indice natural , y los separamos en el bando 1 o 2 Log(N) veces con N como la cantidad de peleadores.
+El criterio para separarlos es que los peleadores es:
+tomo el indice del peleador
+tomo el resto de dividir el indice por 2^k, donde k es el numero de instancia que estamos creando
+si el resto es menor a 2^{k-1} el peleador va al  grupo 1 sino el peleador va al grupo 2
+
+IDEA:
 1.Basta con tomar K tal que 2^k >= N =>2^{k-1}, entonces el resto de cada par i,j \in [1,_,N] su resto va a ser i y j respectivamente, entonces son diferentes
-2.ese k elegido es obligatoriamente k = log_2(n), hay que ver como hablar de eso
-3.basta con pensar su representacion en binario, pensando en los kesimos bits, es cuestion de probar por absurdo que  i_k =1 y j_k=0 , usando que si todos sus coeficientes son unos o ceros en los mismos indices, entonces es el mismo numero, que eso era absurdo por la hipotesis
+2.Ese k elegido es obligatoriamente k = log_2(N) por propiedades aritmeticas, ahora, yo se que hasta k-1 existe un i tal que el resto de N de 2^x es igual al resto de i de 2^x para todo x entre 0 y k-1,(hace falta probarlo? es trivialmente aritmetico) entonces para lograr que esten en otro grupo
+3.Probar esto tenemos que probar que para todo par de naturales  i,j existe un k tal que:
+	El resto de dividir i por 2^k es mayor a 2^{k-1} y El resto de dividir j por 2^k es menor a 2^{k-1}  
+basta con pensar la representacion en binario de i y j, el resto de 2^k es tomar desde el bit 0 hasta el kesimo bit, cuestion de que si tenemos el kesimo bit de cada numero, separariamos entre los q el bit k-1 es 1 y los que el bit es 0,siendo i_k el kaesimo bit, es cuestion de probar por absurdo que  i_k =1 y j_k=0 para algun k, usando que si todos sus coeficient es son unos o ceros en los mismos indices, entonces es el mismo numero, que eso era absurdo por la hipotesis, entonces, siempre va pasar q haya una instancia en la que 
