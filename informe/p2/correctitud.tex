@@ -1,9 +1,23 @@
+Pseudo pseudo pseudo codigo solucion del problema:
+
+Me paro en el enemigo que aun este vivo, al que llamaremos E1.
+Me paro en el siguiente a E1, al que llamaremos E2, me fijo si lo mata a E1.
+si lo mata, me fijo iterativamente si el siguiente de E2, llamado E3.. y asi susesivamente hasta llegar al ultimo enemigo que mate a E1 o bien se acaben los enemigos.
+para el ultimo enemigo marcado, lo llamamos Ei.
+Decinimos que Ei sera donde se tirara la siguiente genkidama.
+Me paro en el siguiente enemigo de Ei, lo llamamos Ei+1, y nos fijamos si, tirando la genkidama en Ei, muere tambien E1+1.
+luego repetimos el proceso con Ei+2 y asi sucesitvamente hasta llegar al ultimo enemigo que muera al tirar la genkidama en Ei o bien al ultimo enemigo restante y lo llamamos Ej.
+
+y vuelvo al principio si aun quedan enemigos vivos
+
+
 Para probar la correctitud de este algoritmo hay qur probar dos cosas:
 1.que cubre todos los puntos
 2.que es el resultado minimo:
 
 
-1.Esta demostracion es trivial, es parte del algoritmo  calcular que se cubran todos los puntos
+1.Esta demostracion seria trivial, es parte del algoritmo  calcular que se cubran todos los puntos fijandose si la ultima genkidama tirada mata hasta un punto y sino, ver desde donde se tiraria la proxima genkidama para que lo mate, para todos los puntos.
+
 2.lo hacemos por induccion sobre la cantidad de puntos.
 
 La hipotesis inductiva es que para N puntos el algoritmo es minimo

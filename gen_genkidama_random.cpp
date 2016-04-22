@@ -46,16 +46,16 @@ uint64_t rdtsc() {
 	return ((uint64_t)hi << 32) | lo;
 }
 int main() {
-	int t, casos;
+	unsigned long long t, casos;
 	
-	casos = 10001;
+	casos = 10000000;
 	for (uint n = 1; n < casos; n++) {
 		t = 2*n;
 		cout << n << " ";
 		srand(time(NULL));
 
-		t = rand() % 2*n;	//caso promedio
-		//t=0; 				//peor caso
+		//t = rand() % 2*n;	//caso promedio
+		t=0; 				//peor caso
 		//t=n*1000;			//mejor caso
 		int x[n];
 		int y[n];
@@ -67,6 +67,7 @@ int main() {
 		sort(x, x + n, greater<int>());
 		sort(y, y + n, less<int>());
 		//clock_t begin = clock();
+		//cout<<y[n]<<endl;
 		uint64_t begin = rdtsc();
 		genki(t, n, x, y);
 		//clock_t end = clock();
