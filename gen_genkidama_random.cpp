@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <algorithm>
 #include <stdint.h>
+#include <fstream>
 using namespace std;
 #define mata(i, j) \
 				((enemigos[j][0] <= enemigos[i][0]+ t) && ((enemigos[j][1] ) <= enemigos[i][1]+t))
@@ -52,17 +53,20 @@ uint64_t rdtsc() {
 
 int main() {
 	uint t, casos;
-
+	ofstream result("result_genki.txt", ios::out);
 	casos = 20000;
+	uint repetir = casos * 100;
 	for (uint n = 0; n < casos; n++) {
 		uint64_t elapsed_secs = 0;
-		for (uint repeater = 0; repeater < casos; repeater++) {	//t = 2*n;
-			//cout << n << "	";
+		uint64_t elapsed_final = 0;
+		result << n << "	";
+		cout << n << "	";
+		for (uint repeater = 0; repeater < repetir; repeater++) {	//t = 2*n;
 			srand(time(NULL));
 
 			//t = rand() % 2*n;	//caso promedio
-			//t=0; 				//peor caso
-			t = n * 1000;			//mejor caso
+			t = 0; 				//peor caso
+			//t = n * 1000;			//mejor caso
 			int x[n];
 			int y[n];
 			//srand(time(NULL) + t % 100);
@@ -81,8 +85,10 @@ int main() {
 			uint64_t end = rdtsc();
 			elapsed_secs += end - begin;
 		}
-		elapsed_secs = elapsed_secs/casos;
-		cout << elapsed_secs << "\n";
+		elapsed_final = elapsed_secs / repetir;
+		cout << elapsed_final << "  " << elapsed_secs << "\n";
+		result << elapsed_final << "\n";
 	}
+	result.close();
 }
 
