@@ -56,7 +56,7 @@ int main() {
 	casos = 20000;
 	for (uint n = 0; n < casos; n++) {
 		uint64_t elapsed_secs = 0;
-		for (uint repeater = 0; reapeater < casos; repeater++) {	//t = 2*n;
+		for (uint repeater = 0; repeater < casos; repeater++) {	//t = 2*n;
 			//cout << n << "	";
 			srand(time(NULL));
 
