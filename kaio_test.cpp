@@ -28,7 +28,7 @@ void kaio(long n) {
 int main(int argc, char const *argv[])
 {
 	long cant;
-	cant = 100000;
+	cant = 10000000;
 	for (long i = 1; i < cant; i++ ) {
 		//cout<<i<<" ";
 		clock_t begin = clock();
