@@ -81,7 +81,7 @@ int main() {
 			uint64_t end = rdtsc();
 			elapsed_secs += end - begin;
 		}
-		elapsed_secs = elapsed_secs/repeater;
+		elapsed_secs = elapsed_secs/casos;
 		cout << elapsed_secs << "\n";
 	}
 }
