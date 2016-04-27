@@ -23,7 +23,7 @@ int genki(uint t, uint n, int x[], int y[] ) {
 	i = 0;
 	while (i < n) {
 		j = i;
-		while ((j < n) && mata(j, i)){
+		while ((j < n) && mata(j, i)) {
 			j++;
 		}
 		j--;
@@ -32,14 +32,14 @@ int genki(uint t, uint n, int x[], int y[] ) {
 		index_sols++;
 		//me fijo hasta donde llega
 		hasta_j = j;
-		while (hasta_j < n && mata(j, hasta_j)){
+		while (hasta_j < n && mata(j, hasta_j)) {
 			hasta_j++;
 		}
 		i = hasta_j;
 	}
 	//cout << index_sols << "\n";
 	for (i = 0; i < index_sols; i++) {
-		i=i;
+		i = i;
 	}
 	//	cout << sols[i] << " ";
 //}
@@ -52,33 +52,36 @@ uint64_t rdtsc() {
 
 int main() {
 	uint t, casos;
-	
+
 	casos = 20000;
 	for (uint n = 0; n < casos; n++) {
-		//t = 2*n;
-		//cout << n << "	";
-		srand(time(NULL));
+		uint64_t elapsed_secs = 0;
+		for (uint repeater = 0; reapeater < casos; repeater++) {	//t = 2*n;
+			//cout << n << "	";
+			srand(time(NULL));
 
-		//t = rand() % 2*n;	//caso promedio
-		//t=0; 				//peor caso
-		t=n*1000;			//mejor caso
-		int x[n];
-		int y[n];
-		//srand(time(NULL) + t % 100);
-		for (uint i = 0; i < n; i++) {
-			x[i] = rand() % 10 * n;
-			y[i] = rand() % 10 * n;
+			//t = rand() % 2*n;	//caso promedio
+			//t=0; 				//peor caso
+			t = n * 1000;			//mejor caso
+			int x[n];
+			int y[n];
+			//srand(time(NULL) + t % 100);
+			for (uint i = 0; i < n; i++) {
+				x[i] = rand() % 10 * n;
+				y[i] = rand() % 10 * n;
+			}
+			sort(x, x + n, greater<int>());
+			sort(y, y + n, less<int>());
+			//clock_t begin = clock();
+			//cout<<y[n]<<endl;
+			uint64_t begin = rdtsc();
+			genki(t, n, x, y);
+
+			//clock_t end = clock();
+			uint64_t end = rdtsc();
+			elapsed_secs += end - begin;
 		}
-		sort(x, x + n, greater<int>());
-		sort(y, y + n, less<int>());
-		//clock_t begin = clock();
-		//cout<<y[n]<<endl;
-		uint64_t begin = rdtsc();
-		genki(t, n, x, y);
-
-		//clock_t end = clock();
-		uint64_t end = rdtsc();
-		uint64_t elapsed_secs = end - begin;
+		elapsed_secs = elapsed_secs/repeater;
 		cout << elapsed_secs << "\n";
 	}
 }
