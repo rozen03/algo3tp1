@@ -55,7 +55,7 @@ int main() {
 	uint t, casos;
 	ofstream result("result_genki.txt", ios::out);
 	casos = 20000;
-	uint repetir = casos*10 + 31415;
+	uint repetir = 31415;
 	for (uint n = 0; n < casos; n++) {
 		uint64_t elapsed_secs = 0;
 		uint64_t elapsed_final = 0;
