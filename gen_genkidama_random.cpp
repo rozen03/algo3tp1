@@ -53,8 +53,8 @@ uint64_t rdtsc() {
 
 int main() {
 	uint t, casos;
-	ofstream result("result_genki.txt", ios::out);
-	casos = 20000;
+	fstream result("result_genki_random4.txt", ios::out);
+	casos = 2000;
 	uint repetir = 31415;
 	for (uint n = 0; n < casos; n++) {
 		uint64_t elapsed_secs = 0;
@@ -64,8 +64,8 @@ int main() {
 		for (uint repeater = 0; repeater < repetir; repeater++) {	//t = 2*n;
 			srand(time(NULL));
 
-			//t = rand() % 2*n;	//caso promedio
-			t = 0; 				//peor caso
+			t = rand() % 2*n;	//caso promedio
+			//t = 0; 				//peor caso
 			//t = n * 1000;			//mejor caso
 			int x[n];
 			int y[n];
