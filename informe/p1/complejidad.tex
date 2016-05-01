@@ -14,11 +14,26 @@
         \Else
         	\State el peleador va al segundo bando
         \EndIf
-        \EndFor
+        \EndFor 
 	\EndFor
 	\EndFunction
 \end{algorithmic}
 \end{algorithm}
+%este deberia ser el post
+% Int rango := log2(n) + 2
+% If (n == 2(rango -2 )) rango := rango - 1
+% Para i := 1 hasta rango hacer
+% 	Para x := 0 hasta n hacer
+% 		Si x mod 2i < 2(i – 1) entonces 
+% Imprimir “1”
+% 		Else a
+% Imprimir “2”
+% 		Fin Si
+% 		X++
+% 	Fin Para
+% 	I++
+% Fin Para
 
-\subsubsection{Analisis}
+\subsubsection{Analisis} 
+%EL corrector dijo que esto estaba bien, si demostraba bien la correctitud, pero no se si hace falta mas  explicacion
 El algoritmo hace dos ciclos anidados el primero que lo hace $Log_2(N)$ veces y el otro $N$ veces, mientras que todas las operaciones adentro de ambos ciclos tiene costo de $O(1)$ dando una complejidad final de $O(N Log(N))$.
