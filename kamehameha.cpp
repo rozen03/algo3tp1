@@ -1,4 +1,3 @@
-#include"kamehameha.h"
 
 int main(int argc, char* argv[]){
     if(argc > 1){
@@ -17,11 +16,6 @@ int main(int argc, char* argv[]){
         return 0;
     }
 
-    // Chequeo si se llamo correctamente al programa
-	if(isatty(STDIN_FILENO)){
-		cout << "Modo de uso: echo \"entrada\" | ./kamehameha" << endl;
-		return 0;
-	}
     int n;
     cin >> n;
     REMAINING_ANDROIDS = n;
@@ -38,8 +32,6 @@ int main(int argc, char* argv[]){
     int index = 1;
     for(vector<Android>::iterator it = SOLUTION.begin(); it != SOLUTION.end(); ++it){
         int i = it->kame -1;
-//        output[i].append(it->X()+' ');
-//        output[i].append(it->Y()+' ');
         output[i].append(to_string(index) + ' ');
         defeated[i] ++;
         index++; 
