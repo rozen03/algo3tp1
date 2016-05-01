@@ -53,7 +53,7 @@ uint64_t rdtsc() {
 
 int main() {
 	uint t, casos;
-	fstream result("result_genki_random4.txt", ios::out);
+	fstream result("result_genki_random6.txt", ios::out);
 	casos = 2000;
 	uint repetir = 31415;
 	for (uint n = 0; n < casos; n++) {
