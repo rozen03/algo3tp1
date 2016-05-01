@@ -1,5 +1,22 @@
 \subsubsection{Explicación del problema}
 El problema consiste 
+% Tenemos un plano del cual no nos importan sus dimensiones. Suponiendo que el plano en estado inicial está vacío y la entrada del problema consiste en una serie posiciones que cumplen que X1 > X2 > … > Xn >= 0 y 0 <= Y1 <= Y2 <= … <= Yn, entonces podemos considerar que esas posiciones en el plano están ocupadas.
+% El problema consiste en buscar el menor número de intentos necesarios para remover las posiciones ocupadas. 
+% Consideramos que un punto se remueve si uno se “ubica” en esa posición y considera que se remueve ese punto y todos los demás puntos que están a una distancia T sobre ambos ejes, siendo T una entrada del programa que es un número entero positivo.
+% Supongamos N = 2, tenemos una grilla de 2x2, y suponiendo que tenemos los puntos ubicados de la siguiente manera:
+
+% Si T = 0 entonces el menor número de intentos que necesito para remover ambos puntos es 2. Si T fuera mayor o igual a 1 entonces con un solo intento ya removimos ambos puntos.
 \subsubsection{Ideas}
 La idea de la solucion era buscar una forma en la cual poder definir grpos de enemigos para averiguar en cual convenia tirar la genkidama para que sea la menor cantidad.
 Para eso lo que decidimos fue hacer un algoritmo goloso que consiste en tomar el primero del conjunto e ir recorriendo los enemigos en orden hasta llegar al ultimo de los que terminarian haciendo que muera el primero le tiro una genkidama. Nos guardamos a ese enemigo y luego evaluamos hasta que enemigo llegaria la genkidama si lo tiramos en el, y volvemos a repetir el proceso a partir del siguiente enemigo hasta finalizar la lista de enemigos.
+
+%supongo q lo q dice despues de "algoritmo goloso" deberia eliminarse y pegar esto
+%  Me paro en el enemigo que aun este vivo, al que llamaremos E1.
+% Me paro en el siguiente a E1, al que llamaremos E2, me fijo si tirarle la genkidama mata a E1.
+% si lo mata, me fijo iterativamente si el siguiente de E2, llamado E3, me fijo si tirarle la genkidama mata a E1.... y asi susesivamente hasta llegar al ultimo enemigo que tirarle la genkidama mate a E1 o bien se acaben los enemigos.
+% para el ultimo enemigo marcado, lo llamamos Ei.
+% Decinimos que Ei sera donde se tirara la siguiente genkidama.
+% Me paro en el siguiente enemigo de Ei, lo llamamos Ei+1, y nos fijamos si, tirando la genkidama en Ei, muere tambien E1+1.
+% luego repetimos el proceso con Ei+2 y asi sucesitvamente hasta llegar al ultimo enemigo que muera al tirar la genkidama en Ei o bien al ultimo enemigo restante y lo llamamos Ej.
+
+% y vuelvo al principio si aun quedan enemigos vivos

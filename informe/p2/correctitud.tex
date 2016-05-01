@@ -1,33 +1,47 @@
-Pseudo pseudo pseudo codigo solucion del problema:
-
-Me paro en el enemigo que aun este vivo, al que llamaremos E1.
-Me paro en el siguiente a E1, al que llamaremos E2, me fijo si lo mata a E1.
-si lo mata, me fijo iterativamente si el siguiente de E2, llamado E3.. y asi susesivamente hasta llegar al ultimo enemigo que mate a E1 o bien se acaben los enemigos.
-para el ultimo enemigo marcado, lo llamamos Ei.
-Decinimos que Ei sera donde se tirara la siguiente genkidama.
-Me paro en el siguiente enemigo de Ei, lo llamamos Ei+1, y nos fijamos si, tirando la genkidama en Ei, muere tambien E1+1.
-luego repetimos el proceso con Ei+2 y asi sucesitvamente hasta llegar al ultimo enemigo que muera al tirar la genkidama en Ei o bien al ultimo enemigo restante y lo llamamos Ej.
-
-y vuelvo al principio si aun quedan enemigos vivos
 
 
-Para probar la correctitud de este algoritmo hay qur probar dos cosas:
-1.que cubre todos los puntos
-2.que es el resultado minimo:
+% DEMOSTRACION
+%     Llamo S =[E_1,_,E_N] solucion propuesta por mi algoritmo (o sea, una lista ordenada de indicdes de puntos)
+%     Llamo S*=[E*_1,_,E*_M] a otra solucion, tal que M<N
+%     llamo rango(i)= [X en enemigos where tirar genkidama en i, X muere] (lista por comprension a la python)
+
+%     Si E_i == E*_i para todo i<=M, entonces, para S* no es solucion, por que por ejemplo, rango(E_N) - rango(E_(N-1)) (resta de conjuntos, de algebra 1 :D) != vacio
+%     entonces si M <= N-1 no podria funcionar esa solcion.
 
 
-1.Esta demostracion seria trivial, es parte del algoritmo  calcular que se cubran todos los puntos fijandose si la ultima genkidama tirada mata hasta un punto y sino, ver desde donde se tiraria la proxima genkidama para que lo mate, para todos los puntos.
+% OK. Pero falta la explicación clave de por qué la diferencia de esos conjuntos es distinta de vacío. Con eso agregado y emprolijando un poco, yo lo pondría así:
 
-2.lo hacemos por induccion sobre la cantidad de puntos.
+% Si E_i == E*_i para todo i<=M, entonces, S* no es solucion, porque para todo 1 < k <= N, rango(E_k) - rango(E_(k-1)) != vacio (dado que el algoritmo no hubiera tirado en k si no fuera porque al tirar en k-1 quedaba alguno sin matar). Entonces si M <= N-1 no podria funcionar esa solcion, porque estaría matando a todos los puntos.
+ 
 
-La hipotesis inductiva es que para N puntos el algoritmo es minimo
+%     Entonces Tomo j, tal que E_i == E*_i para todo i<j y E_J != E*_j. (podria simplemente ser primero)
+%     Entonces tengo que, 1.o bien E_j< E*_j
+%                         2.o bien E_j>E*_j
 
-Caso base:
-numero de puntos = 1:
-Esta demostracion es trivial. el algoritmo nos muestra que tira la genkidama en ese unico punto y no se pueden tirar menos genkidamas
+%     1.(Llamo a esto, pseudo Lema 1) Ahora, si E_j< E*_j,  tomo el primer enemigo siguiente que E_(j-1) no pudo matar, y lo voy a llamar X. yendo a la implementacion del algoritmo vemos que E_j era "ultimo" enemigo tal que si le tiro la genkidama, moriria X. Entonces si tomo un indice mayor a E_J, entonces X no muere y S* no seria una solucion, absurdo.
 
-Caso N+1:
-Dada  la HI, si agregamos un punto mas respetando las condiciones nos quedarian tres casos:
-1.O bien la solucion planteada para los N primeros puntos alcanza para que muera el N+1 enemigo, en ese caso seguiria siendo minimo
-2.O bien si la genkidama se tiraba en el punto N, y tirarla en N+1 mataria a N, entonces  en vez de tirarse en N se tira en N+1, nuevamente dando minimo
-3.O bien el punto esta lo suficientemente lejos del resto de los puntos como para que la unica forma de matar a ese enemigo sea tirandole una genkidama a ese punto y dicha genkidama no mate a nadie, en ese caso volveria a ser un minimo por que se requeriria si o si una genkidama mas para llegar a ese punto
+
+% Estaria bueno recordar en este punto que X no muere por que la lista es ordenada y, entonces, si E*_J no lo mata ningun E*_i con i>j lo hará.
+ 
+
+%     2.Ahora bien, puede ser , Tenemos que rango(E_j) >= rango(E*_j) (por que ni E_j ni E*_j matan cosas que ya habian muerto) , 
+
+
+% OK. Igual fijate que esto no es cierto en general. Sólo ocurre por cómo el algoritmo eligió E_j. Si E_j hubiera sido simplemente cualquier punto tal que E_j > E_(j-1) no necesariamente hubiera ocurrido que rango(E_j) >= rango(E*_j). Habría que aclarlo.
+ 
+
+%     entonces tenemos una sucesion de
+%     E_k > E*_k y E_(k+1)<E*_(k+1), con k=<j como rango(E_k) => rango(E*_k) entonces, E*_(k+1) dejaria un enemigo sin matar, y S* no es solucion, absurdo.
+
+%     Entonces solo nos queda que E_k > E*_k para todo M>=k>j, pero, tal como probamos que si E_i == E*_i para todo i<=M, analogamente vemos que, no puede pasar esto, por que sabemos que nos quedarian enemigos sin matar, y S* no es solucion, absurdo.
+
+
+% Realmente no entiendo esta parte. Algunas frases parecen estar incompletas. Pero más allá de eso, no entiendo la idea. Podrías explicarme mejor?
+% uriel rozenberg <rozenberguriel@gmail.com>
+	
+% Apr 29 (2 days ago)
+		
+% to Sebastián
+% para la ultima parte, estoy volviendo a usar el Lema 1, o sea, mi segnda solucion tira una genkidama "antes" del kaesimo, de mi solucion, y otra "despues" del "kaesimo  + 1" si llamo X al primer enemigo q mataria en mi solucion tirando la genkidama en el"kaesimo +1"
+% si en la otra solucion el "kaesimo" elemento es menor al kaesimo de mi solucion, entonces obviamente no va a llegar a matar a X, por que el de mi solucion no llegaba tampoco, y este esta igual o mas lejos.
+% Y como el "kaesimo +1" de mi solucion es el ultimo enemigo q tirandole mata a X, si lo tiro despues , entonces X no moriria, ergo, X queda vivo, entonces... no es Soluciones
