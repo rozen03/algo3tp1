@@ -17,8 +17,32 @@
 	\EndFunction
 \end{algorithmic}
 \end{algorithm}
+% PSEUDO CODIGO
+% Funcion Genkidama(vector Enemigos)
+% 	CantSoluciones = 0
+% 	Para i := 0 hasta Len(Enemigos)
+% 		j := i+1
+% 		Mientras (Pos(i) <= Pos(j) + t)
+% 			j++
+% 		Fin Mientras
+% 		Soluciones[cantSoluciones] := j-1
+% 		cantSoluciones++
+% 		k := j+1
+% 		Mientras(Pos(k) <= Pos(j) + t)
+% 			k++
+% 		Fin Mientras
+% 		i := k	
+% 	Fin Para
+
+% 	Print cantSoluciones
+% 	Para i := 0 hasta cantSoluciones
+% 		Print Soluciones[i]
+% 	Fin Para
+% Fin
+
 
 \subsubsection{Analisis}
+%yo creo q esto se entiende, decime vos xD
 El algoritmo tiene un ciclo principal con dos ciclos internos,  para cada enemigo, o bien es tomado en cuenta en el primer ciclo o bien en el segundo, salvo los casos donde el enemigo no mate al primer enemigo vivo ni este sea matado por el ultimo enemigo que mata al primer enemigo vivo.
 
 Para la complejidad del algoritmo, consideramos el mejor caso el caso en que si tiramos la genkidama en cualquiera de los puntos, termina matando a todos los enemigos. y daria una complejidad de $O(N)$
