@@ -1,12 +1,21 @@
 \subsubsection{Explicación del problema}
 El problema consiste en armar varias instancias de 2 bandos de peleadores de forma tal que, siempre participen todos los peleadores en cada instancia, cada peleador haya peleado contra otro al menos una vez y que la cantidad de estas instancias sea minima.
 Para resolver este problema, modelamos cada peleador con un indice, es decir numero natural.
+
+%explicacion posta
+% Tenemos N elementos y el problema consiste en dividir esos elementos en 2 grupos, no necesariamente la mitad para un lado y la mitad para el otro (aunque en la resolución del problema veremos que esto nos favorece), con el siguiente criterio de división: repartir dichos elementos en tantas instancias como se requieran para que cada uno esté “enfrentado” a cada otro elemento al menos una vez en todas las instancias de salida que arroja el problema, estas instancias deben ser mínimas. Al “enfrentarse” nos referimos a que si tenemos únicamente 2 elementos A y B entonces la manera de “enfrentarlos” va a ser repartiendo en un grupo el elemento A y en otro grupo el elemento B, aquí ampliamos con un ejemplo para N = 3:
+% Elementos:= ABC
+% Para resolver el problema podemos enfrentar a A con B y C, de esta manera nos queda únicamente enfrentar a B con C, entonces podemos dividir los 3 elementos en una segunda instancia pero esta vez con B por un lado, A y C por el otro. Cabe destacar que también podemos ubicar a C por un lado, y A y B por otro, y también cumpliríamos con la resolución, pero no sería minimal que es lo que pide el problema, en ese caso o bien optamos por poner a B solo o bien optamos por poner a C solo.
 \subsubsection{Idea e implementacion}
 .\\
 Para resolver el problema usaremos la tecnica de Divide \& Conquer: \\
 	Didivir: Instancia separamos a los peleadores segun el resto de su indice respecto a $2^k$, siendo $k$ la instancia \\
 	Conquistar: Los agrupamos a los peleadores en 2 bandos, uno que agrupo a los luchadores segun el indice que cuyo resto sea menor a $2^k$ y el otro a los restantes. \\
 
-De forma tal que siempre logramos que un peleador llegue a enfrentado a cualquier otro para cuando llegamos a la cota de $k = log_2 (N)$ siendo $N$ la cantidad de peleadores
-
+ En la modelacion del problema, representamos cada peleador con un indice natural , y los separamos en el bando 1 o 2 Log(N) veces con N como la cantidad de peleadores.
+% no se si esto explica mejor
+% El criterio para separarlos es que los peleadores es:
+% tomo el indice del peleador
+% tomo el resto de dividir el indice por 2^k, donde k es el numero de instancia que estamos creando
+% si el resto es menor a 2^{k-1} el peleador va al  grupo 1 sino el peleador va al grupo 2
 
