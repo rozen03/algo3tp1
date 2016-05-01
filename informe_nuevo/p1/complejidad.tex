@@ -1,0 +1,39 @@
+\subsubsection{Pseudocódigo}
+\begin{algorithm}[h!]
+\caption{Estructura del algoritmo de D\&C}
+\begin{algorithmic}[1]
+	\Function{D\&C}{}
+	\State {defino la cantidad de instancias como la parte entera de $log_2(n)+2$}
+	\If{$N$ es potencia de $2^k$}
+		\State le resto 1 a la cantidad de instancias 
+	\EndIf
+	\For{k entre 1 y la cantidad de instancias}
+		\For{cada indice de peleador}
+        \If{el resto del indice de $2^k$ es menor a $2^{k-1}$}
+            \State el peleador va al primer bando
+        \Else
+        	\State el peleador va al segundo bando
+        \EndIf
+        \EndFor 
+	\EndFor
+	\EndFunction
+\end{algorithmic}
+\end{algorithm}
+%este deberia ser el post
+% Int rango := log2(n) + 2
+% If (n == 2(rango -2 )) rango := rango - 1
+% Para i := 1 hasta rango hacer
+% 	Para x := 0 hasta n hacer
+% 		Si x mod 2i < 2(i – 1) entonces 
+% Imprimir “1”
+% 		Else a
+% Imprimir “2”
+% 		Fin Si
+% 		X++
+% 	Fin Para
+% 	I++
+% Fin Para
+
+\subsubsection{Analisis} 
+%EL corrector dijo que esto estaba bien, si demostraba bien la correctitud, pero no se si hace falta mas  explicacion
+El algoritmo hace dos ciclos anidados el primero que lo hace $Log_2(N)$ veces y el otro $N$ veces, mientras que todas las operaciones adentro de ambos ciclos tiene costo de $O(1)$ dando una complejidad final de $O(N Log(N))$.

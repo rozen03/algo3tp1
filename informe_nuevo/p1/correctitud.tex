@@ -1,0 +1,87 @@
+% Para demostrar la correctitud del algoritmo vamos a probarlo en 3 partes.
+% 1.Probar que para todo par de naturales existe un k tal que sus restos son diferentes
+% 2.Probar que el minimo k posible para cualqueir conjunto es log(n) 
+% 3.probar que entonces para cada par naturales en alguna instancial van a estar en un bando o en otro, 
+
+
+% Prologo: En la modelacion del problema, representamos cada peleador con un indice natural , y los separamos en el bando 1 o 2 Log(N) veces con N como la cantidad de peleadores.
+% El criterio para separarlos es que los peleadores es:
+% tomo el indice del peleador
+% tomo el resto de dividir el indice por 2^k, donde k es el numero de instancia que estamos creando
+% si el resto es menor a 2^{k-1} el peleador va al  grupo 1 sino el peleador va al grupo 2
+
+% IDEA:
+% 1.Basta con tomar K tal que 2^k >= N =>2^{k-1}, entonces el resto de cada par i,j \in [1,_,N] su resto va a ser i y j respectivamente, entonces son diferentes
+% 2.Ese k elegido es obligatoriamente k = log_2(N) por propiedades aritmeticas, ahora, yo se que hasta k-1 existe un i tal que el resto de N de 2^x es igual al resto de i de 2^x para todo x entre 0 y k-1,(hace falta probarlo? es trivialmente aritmetico) entonces para lograr que esten en otro grupo
+% 3.Probar esto tenemos que probar que para todo par de naturales  i,j existe un k tal que:
+% 	El resto de dividir i por 2^k es mayor a 2^{k-1} y El resto de dividir j por 2^k es menor a 2^{k-1}  
+% basta con pensar la representacion en binario de i y j, el resto de 2^k es tomar desde el bit 0 hasta el kesimo bit, cuestion de que si tenemos el kesimo bit de cada numero, separariamos entre los q el bit k-1 es 1 y los que el bit es 0,siendo i_k el kaesimo bit, es cuestion de probar por absurdo que  i_k =1 y j_k=0 para algun k, usando que si todos sus coeficient es son unos o ceros en los mismos indices, entonces es el mismo numero, que eso era absurdo por la hipotesis, entonces, siempre va pasar q haya una instancia en la que 
+% ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+% discucion de la demostracion con el corrector
+
+% Prologo: En la modelacion del problema, representamos cada peleador con un indice natural , y los separamos en el bando 1 o 2 Log(N) veces con N como la cantidad de peleadores.
+% El criterio para separarlos es que los peleadores es:
+% tomo el indice del peleador
+% tomo el resto de dividir el indice por 2^k, donde k es el numero de instancia que estamos creando
+% si el resto es menor a 2^{k-1} el peleador va al  grupo 1 sino el peleador va al grupo 2
+
+% La idea era probar que si ibamos separando por los restos de 2^k , cuando lleguemos a k= ceil(log_2(N)) ya ibamos a tener todos los bandos posibles
+% Mirandolo bien, noto que probando la 3, pruebo la 1, asi q voy a dejar esa arte sin responder.
+
+% 2.Ese k elegido es obligatoriamente k = log_2(N) por propiedades aritmeticas,
+
+% Debería ser k = ceil(log_2(N))
+% Claro, si.
+ 
+
+%     ahora, yo se que hasta k-1 existe un i tal que el resto de N de 2^x es igual al resto de i de 2^x para todo x entre 0 y k-1,(hace falta probarlo? es trivialmente aritmetico) entonces para lograr que esten en otro grupo
+
+
+% Estaría bueno explicar por qué, aunque no me parece tan importante. De todas maneras, no me queda claro para qué te sirve saber esto. La frase parece estar sin terminar.
+
+ 
+% a Lo queria usar para explicar que para el algoritmo era obligatorio hacer cada iteracion del ciclo, que en ninguno de los casos de la iteracion termina pasando que ningun peleador pelee con alguien nuevo.
+% La explicacion seria, si tomamos el resto de N de 2^x y lo llamo "restoN", entonces restoN y N tienen el mismo resto en 2^x.
+% La idea era entonces era que a partir de ahi, simpelemenente elijiendo un N lo suficientemente grande esto dejaba de pasar, y ahi es donde entra el 3
+% 3.Probar esto tenemos que probar que para todo par de naturales  i,j existe un k tal que:
+%     El resto de dividir i por 2^k es mayor a 2^{k-1} y El resto de dividir j por 2^k es menor a 2^{k-1} 
+% basta con pensar la representacion en binario de i y j, el resto de 2^k es tomar desde el bit 0 hasta el kesimo bit, cuestion de que si tenemos el kesimo bit de cada numero, separariamos entre los q el bit k-1 es 1 y los que el bit es 0,siendo i_k el kaesimo bit,
+
+% Ok, podría estar expresado bastante más claro, pero entiendo la idea.
+ 
+
+%     es cuestion de probar por absurdo que  i_k =1 y j_k=0 para algun k, usando que si todos sus coeficient es son unos o ceros en los mismos indices, entonces es el mismo numero, que eso era absurdo por la hipotesis, entonces, siempre va pasar q haya una instancia en la que
+
+
+% No lo pensé, pero no me queda clara la idea de la demostración por el absurdo de que i_k =1 y j_k=0 para algun k. No está completa acá, no?1
+
+% Cierto, no esta completo, no se que onda xD
+% La idea es que tomo (i_1,..., i_n) para represaentar i en binario y (j_1, ..,j_n) para representar j.
+% Basicamente lo que queria decir es que si para todo k i_k = j_k entonces i = 1 lo cual es absurdo por hipotesis, entonces tiene q ver un k tal que sus bits sean diferentes, y esto despeus se representa en e lproblema, mirando los restos de 2^k
+% u----------------
+% otro mail
+% Edito el ultimo comentario q esta escrito mal.
+
+% Basicamente lo que queria decir es que:
+% Si para todo k, i_k == i_j,    entonces i ==j, lo cual es absurdo por la hipotesis (que no escribi) de que i != j.
+
+% la idea era demostrar que en alguno de los bits que representan a ambos numeros, tienen q diferir, y por ende, el criterio de separacion que estaba usando, es correcto
+
+% --------------------------------------------------------------------------------------------------------
+% Comentarios del corrector
+% Ok. Creo que entiendo la idea. Pero en algún lado habría que decir que el k solo puede estar entre 1 y ceil(log_2(n)), no? Es decir, el item 3 de antes (ahora lo llamo (A)) quedaría, salvo detalles, así (en rojo lo agregado por mí):
+
+% (A) Para todo par de naturales 1 <= i,j <= n, existe un 1 =< k <= ceil(log_2(n)) tal que el resto de dividir i por 2^k es mayor a 2^{k-1} y El resto de dividir j por 2^k es menor a 2^{k-1} .
+
+% Lo que está en rojo es importante porque justamente vos estás queriendo mostrár que armar ceil(log_2(n)) peleas te alcanza para que no queden dos peleadores sin pelear entre sí. 
+
+% Parte de lo que mandaste en rojo en los últimos dos mails te va a servir para probar (A). Pero va a hacer falta completarla para tener en cuenta la restriccion que te agregué: 1 =< k <= ceil(log_2(n)).
+
+% Ahora sólo faltaría ver que ceil(log_2(n)) es lo mejor que se puede hacer. Llamemos (B) a esta propiedad:
+
+% (B) No es posible armar un conjunto de peleas C que cumpla que no queden dos boxeadores sin pelear entre sí, y tal que la cantidad de peleas en C sea menor a ceil(log_2(n)). 
+
+% No me queda claro si intentaste probar (B) en algo de lo que me mandaste, pero creo que debería salir sin muchas complicaciones por inducción. 
+
+% En definitiva entonces, creo que podrías reacomodar un poco y completar lo que me mandaste de forma tal de probar (A) y (B). La demostración completa consistiría en eso: probar (A) y (B). Decime si te cierra.
+

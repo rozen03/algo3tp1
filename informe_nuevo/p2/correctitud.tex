@@ -1,0 +1,33 @@
+Pseudo pseudo pseudo codigo solucion del problema:
+
+Me paro en el enemigo que aun este vivo, al que llamaremos E1.
+Me paro en el siguiente a E1, al que llamaremos E2, me fijo si lo mata a E1.
+si lo mata, me fijo iterativamente si el siguiente de E2, llamado E3.. y asi susesivamente hasta llegar al ultimo enemigo que mate a E1 o bien se acaben los enemigos.
+para el ultimo enemigo marcado, lo llamamos Ei.
+Decinimos que Ei sera donde se tirara la siguiente genkidama.
+Me paro en el siguiente enemigo de Ei, lo llamamos Ei+1, y nos fijamos si, tirando la genkidama en Ei, muere tambien E1+1.
+luego repetimos el proceso con Ei+2 y asi sucesitvamente hasta llegar al ultimo enemigo que muera al tirar la genkidama en Ei o bien al ultimo enemigo restante y lo llamamos Ej.
+
+y vuelvo al principio si aun quedan enemigos vivos
+
+
+Para probar la correctitud de este algoritmo hay qur probar dos cosas:
+1.que cubre todos los puntos
+2.que es el resultado minimo:
+
+
+1.Esta demostracion seria trivial, es parte del algoritmo  calcular que se cubran todos los puntos fijandose si la ultima genkidama tirada mata hasta un punto y sino, ver desde donde se tiraria la proxima genkidama para que lo mate, para todos los puntos.
+
+2.lo hacemos por induccion sobre la cantidad de puntos.
+
+La hipotesis inductiva es que para N puntos el algoritmo es minimo
+
+Caso base:
+numero de puntos = 1:
+Esta demostracion es trivial. el algoritmo nos muestra que tira la genkidama en ese unico punto y no se pueden tirar menos genkidamas
+
+Caso N+1:
+Dada  la HI, si agregamos un punto mas respetando las condiciones nos quedarian tres casos:
+1.O bien la solucion planteada para los N primeros puntos alcanza para que muera el N+1 enemigo, en ese caso seguiria siendo minimo
+2.O bien si la genkidama se tiraba en el punto N, y tirarla en N+1 mataria a N, entonces  en vez de tirarse en N se tira en N+1, nuevamente dando minimo
+3.O bien el punto esta lo suficientemente lejos del resto de los puntos como para que la unica forma de matar a ese enemigo sea tirandole una genkidama a ese punto y dicha genkidama no mate a nadie, en ese caso volveria a ser un minimo por que se requeriria si o si una genkidama mas para llegar a ese punto
