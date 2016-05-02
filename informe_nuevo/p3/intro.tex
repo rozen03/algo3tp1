@@ -20,6 +20,17 @@ Para resolver el problema usaremos la técnica de backtracking. Mediante el mism
 Una posible solución es encontrada cuando no quedan androides por destruir.
 La estructura del algoritmo de backtracking es la siguiente:
 
+%//backtrack
+%Voy iterando por cada enemigo aun vivo
+%	tomo 2 enemigos aun vivos
+%		"Dibujo" la recta por la cual pasan ambos enemigos
+%		Marco como muertos, a todos los enemigos que esten en esa recta
+%		llamo a backtrack //se vuelve a iterar sobre los enemigos q a partir de ese momento esten vivos y trazar nuevas rectas
+%		marco como vivos, a todos los enemigos que hayan estado en esa recta ( por que asi, puedo considerar , en las proximas iteraciones, otras soluciones posibles)
+%
+
+
+
 \begin{algorithm}[h!]
 \caption{Estructura del algoritmo de Backtracking}
 \begin{algorithmic}[1]
