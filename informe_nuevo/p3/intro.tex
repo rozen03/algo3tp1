@@ -1,24 +1,25 @@
 \subsubsection{Explicación del problema}
 El problema consiste en destruir a los androides del doctor Maki Gero mediante la menor cantidad posible de Kamehamehas lanzados por Goku.
-A fin de resolver este problema modelamos a los androides como puntos en el plano y los Kamehameha como semirrectas en el mismo. Dicho es el problema se reduce a atravesar todos los puntos del plano con la menor cantidad de semirrectas.
 
-Tenemos un plano infinito con N posiciones ocupadas. El problema consiste en remover dichos puntos dibujando semirrectas desde una posición inicial en una dirección indicada, los puntos que sean atravesados por la semirrecta se consideran removidos. La cantidad de semirrectas necesarias para remover todos los puntos debe ser la mínima posible.
-Supongamos el siguiente plano con N = 3:
+A fin de resolver este problema modelamos a los androides como $N$ puntos en un plano, con coordenadas $x, y > 0$, y los Kamehameha como rectas en el mismo. Dicho problema se reduce a atravesar todos los puntos del plano con la menor cantidad posible de rectas.
 
-\includegraphics[width=\textwidth]{ex_ej_3}
+Supongamos el siguiente caso con $N$ = 3:
 
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[width=100px]{ex_ej_3}
+\caption{Ejemplo del problema 3 con $N = 3$}
+\end{center}
+\end{figure}
 
 Entonces se ve claramente que con dos rectas alcanza para solucionar el problema.
 
-
-
-
-
-
 \subsubsection{Ideas e implementación}
-Para resolver el problema usaremos la técnica de backtracking. Mediante el mismo iremos eligiendo de a 2 elementos dentro de un vector con las posiciones de los androides y calculando la pendiente de la recta que los une nos fijaremos si atraviesa posiciones de otros androides en su recorrido. Marcaremos todos estos puntos como androides destruidos.
+
+Para resolver el problema usaremos la técnica de backtracking. Mediante el mismo iremos eligiendo de a 2 elementos dentro de un vector con las posiciones de los androides y, calculando la pendiente de la recta que los une, nos fijaremos si atraviesa posiciones de otros androides en su recorrido. Marcaremos todos estos puntos como androides destruidos.
 Una posible solución es encontrada cuando no quedan androides por destruir.
-La estructura del algoritmo de backtracking es la siguiente:
+
+La estructura del algoritmo de backtracking está en la sección del análisis de complejidad.
 
 %//backtrack
 %Voy iterando por cada enemigo aun vivo
@@ -31,29 +32,29 @@ La estructura del algoritmo de backtracking es la siguiente:
 
 
 
-\begin{algorithm}[h!]
-\caption{Estructura del algoritmo de Backtracking}
-\begin{algorithmic}[1]
-	\Function{Backtrack}{}
-	\If{no quedan mas androides por destruir}
-		\State Mejor solución encontrada hasta ahora
-		\State Guardo el vector de androides como mejor solución
-	\Else
-		\For{cada par de androides $a_1$, $a_2$}
-            \If{$a_1$ y $a_2$ no estan destruidos}
-                \If{la solución parcial es menor que la mejor solución +1}
-                    \State Destruir los androides $a_1$, $a_2$
-                    \State Destruir los androides en la semirrecta entre $a_1$ y $a_2$
-                    \State Backtrack()
-                    \State Restaurar los androides en la semirrecta entre $a_1$ y $a_2$
-                    \State Restaurar los androides $a_1$, $a_2$                        
-                \EndIf
-            \EndIf
-		\EndFor
-	\EndIf
-	\EndFunction
-\end{algorithmic}
-\end{algorithm}
+% \begin{algorithm}[h!]
+% \caption{Estructura del algoritmo del problema 3}
+% \begin{algorithmic}[1]
+% 	\Function{Kamehameha}{\textbf{vector} $androides$}
+% 	\If{no quedan mas androides por destruir}
+% 		\State Mejor solución encontrada hasta ahora
+% 		\State Guardo el vector de androides como mejor solución
+% 	\Else
+% 		\For{cada par de androides $a_1$, $a_2$}
+%             \If{$a_1$ y $a_2$ no estan destruidos}
+%                 \If{la solución parcial es menor que la mejor solución +1}
+%                     \State Destruir los androides $a_1$, $a_2$
+%                     \State Destruir los androides en la semirrecta entre $a_1$ y $a_2$
+%                     \State Backtrack()
+%                     \State Restaurar los androides en la semirrecta entre $a_1$ y $a_2$
+%                     \State Restaurar los androides $a_1$, $a_2$                        
+%                 \EndIf
+%             \EndIf
+% 		\EndFor
+% 	\EndIf
+% 	\EndFunction
+% \end{algorithmic}
+% \end{algorithm}
 
 \subsubsection{Podas}
 En esta sección se explican las podas implementadas.

@@ -1,5 +1,56 @@
+\newpage
 \subsubsection{Pseudocódigo}
 
-\subsubsection{Analisis}
+\begin{algorithm}[h!]
+\caption{Estructura del algoritmo del problema 3}
+\begin{algorithmic}[1]
+	\Function{Kamehameha}{\textbf{vector} $androides$}
+	\State{\textbf{vector} $soluciones$}
+	\State{\textbf{vector} $solucionParcial$}
+	\State{\textbf{vector} $mejorSolucion$}
+	\State{\textbf{int} $quedanAndroides$ := false}
+	\For{$i$ := 0 hasta Len($androides$)}
+		\If{EstaVivo($androides$[$i$])}
+			\State{$quedanAndroides$ := true}
+		\EndIf
+	\EndFor
+	\If{!$quedanAndroides$}
+		\State{$soluciones$.Agregar($solucionParcial$)}
+	\Else
+		\For{$i$ := 0 hasta Len($androides$)}
+			\For{$j$ :=  0 hasta Len($androides$)}
+				\If{$j == i$}
+					\State{$j++$}
+				\EndIf
+				\If{EstaMuerto($androides$[$i$]) \textbf{and} EstaMuerto($androides$[$j$])}
+					\If{Len($solucionParcial$) $\leq$ Len($mejorSolucion$)}
+						\State{Matar($androides$, $i$)}
+						\State{Matar($androides$, $j$)}
+						\State{\textbf{float} $pendiente$ := Abs(($androides$[$i$].y - $androides$[$j$].y) / ($androides$[$i$].x - $androides$[$j$].x))}
+						\For{$k$ := 0 hasta Len($androides$)}
+							\If{!EstaMuerto($androides$[$k$]) \textbf{and} $pendiente$ == $androides$[$k$].y - $androides$[$k$].x}
+								\State{Matar($androides$, $k$)}
+							\EndIf
+						\EndFor
+						\State{Backtrack($androides$)}
+						\For{$k$ := 0 hasta Len($androides$)}
+							\If{EstaMuerto($androides$[$k$]) \textbf{and} $pendiente$ == $androides$[$k$].y - $androides$[$k$].x}
+								\State{Revivir($androides$, $k$)}
+							\EndIf
+						\EndFor
+						\State{Revivir($androides$, $i$)}
+						\State{Revivir($androides$, $j$)}
+					\EndIf
+				\EndIf
+			\EndFor
+		\EndFor
+	\EndIf
+	\State{Print $mejorSolucion$}
+	\EndFunction
+\end{algorithmic}
+\end{algorithm}
+
+
+\subsubsection{Análisis}
 
 La complejidad del algoritmo sin podas recae en O(NN + 2) pues por cada punto recorremos todos para trazar todas las posibles rectas, entonces partiendo de un punto cualquiera trazamos rectas con todos los demás puntos en O(N), si esto lo vamos a hacer para N puntos entonces tenemos hasta aquí O(N2). Lo que resta es la recursividad del algoritmo pues si tenemos N puntos y trazamos una recta entre los 2 primeros, luego vamos a tener que calcular todas las posibles soluciones para los N – 2 puntos restantes (Esto sigue siendo O(N)). Con lo cual se concluye que para N puntos existentes cuyas rectas con otros puntos se calculan en O(N2) tendremos una productoria de N veces N2, lo que quedaría como N2 * …(N - 2 veces)… * N2 = NN + 2.

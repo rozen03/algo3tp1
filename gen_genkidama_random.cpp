@@ -53,31 +53,32 @@ uint64_t rdtsc() {
 
 int main() {
 	uint t, casos;
-	fstream result("result_genki_random6.txt", ios::out);
+	fstream result("Tvariable100.txt", ios::out);
 	casos = 2000;
-	uint repetir = 31415;
-	for (uint n = 0; n < casos; n++) {
+	uint repetir = 100;
+
+	int n = 2000;
+	// t = rand() % 2*n;	//caso promedio
+	//t = 0; 				//peor caso
+	//t = n * 1000;			//mejor caso
+	int x[n];
+	int y[n];
+	//srand(time(NULL) + t % 100);
+	for (uint i = 0; i < n; i++) {
+		x[i] = rand() % (100*n);
+		y[i] = rand() % (100*n);
+	}
+	sort(x, x + n, greater<int>());
+	sort(y, y + n, less<int>());
+
+	for (t = 1; t <= casos; t++) {
 		uint64_t elapsed_secs = 0;
 		uint64_t elapsed_final = 0;
-		result << n << "	";
-		cout << n << "	";
+		result << t << "	";
+		cout << t << "	";
+		srand(time(NULL));
 		for (uint repeater = 0; repeater < repetir; repeater++) {	//t = 2*n;
-			srand(time(NULL));
-
-			t = rand() % 2*n;	//caso promedio
-			//t = 0; 				//peor caso
-			//t = n * 1000;			//mejor caso
-			int x[n];
-			int y[n];
-			//srand(time(NULL) + t % 100);
-			for (uint i = 0; i < n; i++) {
-				x[i] = rand() % 10 * n;
-				y[i] = rand() % 10 * n;
-			}
-			sort(x, x + n, greater<int>());
-			sort(y, y + n, less<int>());
-			//clock_t begin = clock();
-			//cout<<y[n]<<endl;
+			// srand(time(NULL));
 			uint64_t begin = rdtsc();
 			genki(t, n, x, y);
 
