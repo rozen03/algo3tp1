@@ -1,17 +1,26 @@
-Para demostrar la correctitud del algoritmo vamos a hacerlo en 3 partes:
+Para demostrar la correctitud del algoritmo vamos a hacerlo en 2 partes:
 \begin{enumerate}
-\item Probar que para todo par de naturales existe un $k$ tal que sus restos son diferentes
-\item Probar que el mínimo $k$ posible para cualquier conjunto es log(n) 
-\item Probar que entonces para cada par naturales en alguna instancial van a estar en un bando o en otro
+% \item Probar que para todo par de naturales existe un $k$ tal que sus restos son diferentes
+\item Probar que la mínima cantidad posible de instancias $K_{min}$ para cualquier conjunto de enemigos es $[log_2(N)]$, donde $N$ es la cantidad de enemigos. 
+\item Probar que cada par de enemigos se enfrenta en al menos una instancia de las generadas.
 \end{enumerate}
 
-CONTINUARA
+En el modelo del problema representamos a cada peleador con un índice natural, y los separamos en el bando 1 o 2 $log_2(N)$.
+El criterio para colocar a un peleador en un grupo u otro en cada instancia es:
+\begin{itemize}
+\item Tomo el índice del peleador
+\item Tomo el resto de dividir el índice por $2^k$, donde $k$ es el número de instancia que estamos creando
+\item Si el resto es menor a $2^{k-1}$ el peleador va al grupo 1, en caso contrario va al grupo 2
+\end{itemize}
 
-% Prologo: En la modelacion del problema, representamos cada peleador con un indice natural , y los separamos en el bando 1 o 2 Log(N) veces con N como la cantidad de peleadores.
-% El criterio para separarlos es que los peleadores es:
-% tomo el indice del peleador
-% tomo el resto de dividir el indice por 2^k, donde k es el numero de instancia que estamos creando
-% si el resto es menor a 2^{k-1} el peleador va al  grupo 1 sino el peleador va al grupo 2
+\subsubsection{Demostración}
+\begin{enumerate}
+\item Quiero ver $K_{min} \geq [log_2(N)]$. Esto es así porque para todo $1 \leq K \leq [log_2(N)] - 1$ existe un $1 \leq i \leq N$ tal que $r_{2^K}(N) = r_{2^K}(i)$. Por lo tanto, hay al menos un peleador $i$ que siempre cae en el mismo grupo que el peleador $N$. Esto puede verse notando que $1 \leq 2^K \leq N - 1$, por lo tanto tomando $1 \leq i = N-2^k \leq N$ resulta que $r_{2^K}(i) = r_{2^K}(N-2^K) = r_{2^K}(N)$.
+
+\item Quiero ver que $K_{min} \leq [log_2(N)]$. Para esto necesito ver que para todo par de naturales $1 \leq i, j \leq N$ con $i \neq j$ (es decir, para todo par de enemigos) existe un $1 \leq K \leq [log_2(N)]$ tal que $r_{2^K}(i) \geq 2^{K-1}$ y $r_{2^K}(j) < 2^{K-1}$ (es decir, existe una instancia en la cual están enfrentados). 
+
+Si consideramos la representación binaria de $i$ y $j$, el resto de dividir por $2^K$ se obtiene tomando desde el bit 0 al $K$ésimo. Ahora bien, si suponemos que no existe dicho $K$, se tiene que $i_K$ = $j_K$ (donde $i_n$, $j_n$ es el bit $n$ésimo) para todo $1 \leq K \leq [log_2(N)]$. Pero como $1 \leq i, j \leq N$, la cantidad de bits de $i$ y $j$ es $[log_2(N)]$, por lo tanto esto implica que $i = j$. Se llega a un absurdo porque estábamos tomando $i \neq j$ por hipótesis. Por lo tanto se demuestra que $K$ existe.
+\end{enumerate}
 
 % IDEA:
 % 1.Basta con tomar K tal que 2^k >= N =>2^{k-1}, entonces el resto de cada par i,j \in [1,_,N] su resto va a ser i y j respectivamente, entonces son diferentes
@@ -22,11 +31,6 @@ CONTINUARA
 % ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 % discucion de la demostracion con el corrector
 
-% Prologo: En la modelacion del problema, representamos cada peleador con un indice natural , y los separamos en el bando 1 o 2 Log(N) veces con N como la cantidad de peleadores.
-% El criterio para separarlos es que los peleadores es:
-% tomo el indice del peleador
-% tomo el resto de dividir el indice por 2^k, donde k es el numero de instancia que estamos creando
-% si el resto es menor a 2^{k-1} el peleador va al  grupo 1 sino el peleador va al grupo 2
 
 % La idea era probar que si ibamos separando por los restos de 2^k , cuando lleguemos a k= ceil(log_2(N)) ya ibamos a tener todos los bandos posibles
 % Mirandolo bien, noto que probando la 3, pruebo la 1, asi q voy a dejar esa arte sin responder.
