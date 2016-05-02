@@ -36,6 +36,10 @@ Para evaluar la complejidad del algoritmo consideramos el mejor, peor y caso pro
 
 El mejor caso es el que se produce cuando tiramos la genkidama en cualquiera de los puntos, y esta termina matando a todos los enemigos. En este caso la cantidad de genkidamas mínima es 1 y daría una complejidad de $O(N)$, ya que el primer ciclo va pasando todo el vector hasta llegar al final y el segundo ciclo no tiene ningún caso que considerar. Esto sucede una sola vez, es decir que el ciclo principal solo se ejecuta una vez.
 
-El peor caso sería si al tirar una genkidama en cualquier enemigo se terminara matando a ese enemigo y sólo a ese enemigo. En este caso cada enemigo termina siendo tomado en cuenta en ambos ciclos internos y en el ciclo principal, dando una complejidad de $O(3N) = O(N)$.
+% El peor caso sería si al tirar una genkidama en cualquier enemigo se terminara matando a ese enemigo y sólo a ese enemigo. En este caso cada enemigo termina siendo tomado en cuenta en ambos ciclos internos y en el ciclo principal, dando una complejidad de $O(3N) = O(N)$.
+
+El peor caso sería si al tirar una genkidama en cualquier enemigo se terminara matando a ese enemigo y sólo a ese enemigo. En este caso cada enemigo termina siendo tomado en cuenta en ambos ciclos internos, dando una complejidad de $O(2N) = O(N)$.
+
+% TODO: rozen por lo que puse en una parte de la experimentacion creo que es 2N, lo cambio para que quede igual pero no se que onda.
 
 Y el caso promedio que es simplemente aleatorio también que está en el orden de $O(N)$. Esto es así porque es un caso peor que el mejor y mejor que el peor. Y como el peor y el mejor caso son ambos $O(N)$, no hay otra opción que el caso promedio también lo sea.
