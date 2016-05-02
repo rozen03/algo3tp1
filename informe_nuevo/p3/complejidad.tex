@@ -27,9 +27,12 @@
 						\State{Matar($androides$, $i$)}
 						\State{Matar($androides$, $j$)}
 						\State{\textbf{float} $pendiente$ := Abs(($androides$[$i$].y - $androides$[$j$].y) / ($androides$[$i$].x - $androides$[$j$].x))}
+						\State{\textbf{float} $ordenada$ := $androides$[$i$].y - $pendiente * androides$[$i$].x}
 						\For{$k$ := 0 hasta Len($androides$)}
-							\If{!EstaMuerto($androides$[$k$]) \textbf{and} $pendiente$ == $androides$[$k$].y - $androides$[$k$].x}
-								\State{Matar($androides$, $k$)}
+							\If{!EstaMuerto($androides$[$k$])}
+								\If{$androides$[$k$].y == $pendiente * androides$[$k$].x + $ordenada$}
+									\State{Matar($androides$, $k$)}
+								\EndIf
 							\EndIf
 						\EndFor
 						\State{Backtrack($androides$)}
