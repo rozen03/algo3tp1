@@ -2,3 +2,4 @@
 
 \subsubsection{Analisis}
 
+La complejidad del algoritmo sin podas recae en O(NN + 2) pues por cada punto recorremos todos para trazar todas las posibles rectas, entonces partiendo de un punto cualquiera trazamos rectas con todos los demás puntos en O(N), si esto lo vamos a hacer para N puntos entonces tenemos hasta aquí O(N2). Lo que resta es la recursividad del algoritmo pues si tenemos N puntos y trazamos una recta entre los 2 primeros, luego vamos a tener que calcular todas las posibles soluciones para los N – 2 puntos restantes (Esto sigue siendo O(N)). Con lo cual se concluye que para N puntos existentes cuyas rectas con otros puntos se calculan en O(N2) tendremos una productoria de N veces N2, lo que quedaría como N2 * …(N - 2 veces)… * N2 = NN + 2.

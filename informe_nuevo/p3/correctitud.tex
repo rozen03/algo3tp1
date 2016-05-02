@@ -1,2 +1,7 @@
-
+El algoritmo se basa en la técnica de backtracking, por lo tanto sin tener en cuenta podas ni complejidad, podemos decir lisa y llanamente que recorremos punto por punto buscando todas las posibles soluciones al problema. Esto es, por cada punto disponible, elegimos otro para trazar una recta y luego verificar cuántos puntos pasan por dicha recta, luego se aplica el mismo procedimiento con los puntos restantes, contando la cantidad de rectas necesarias. Una vez finalizado este proceso volvemos a tomar todos los puntos y nos paramos sobre el primer punto disponible, pero esta vez elegimos otro punto para trazar la recta distinto a la iteración anterior, verificamos cuántos puntos se destruyen y aplicando el mismo procedimiento.
+Esto nos asegura evaluar todas las posibles soluciones para todos los puntos disponibles.
+En cuanto a las podas, naturalmente verificamos si el punto ya fue destruido y además chequeamos no trazar una recta entre dos puntos en los cuales esos dos puntos sean el mismo, lo cual no sería una recta.
+Hasta aquí seguimos analizando todas las posibilidades pues estamos descartando únicamente puntos ya destruidos y no procesar dos veces el mismo punto, por tanto seguimos garantizando el correcto funcionamiento del algoritmo.
+Por último, para mejorar el rendimiento y además satisfacer los requerimientos del problema descartamos aquellas soluciones que llegado un momento sean peores que la mejor solución encontrada hasta el momento.
+Con las podas correspondientes recién mencionadas podemos asegurar sin problemas que el algoritmo evalúa todas las soluciones factibles a ser la mejor solución y las demás las descarta.
 

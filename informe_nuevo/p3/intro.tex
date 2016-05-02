@@ -2,6 +2,19 @@
 El problema consiste en destruir a los androides del doctor Maki Gero mediante la menor cantidad posible de Kamehamehas lanzados por Goku.
 A fin de resolver este problema modelamos a los androides como puntos en el plano y los Kamehameha como semirrectas en el mismo. Dicho es el problema se reduce a atravesar todos los puntos del plano con la menor cantidad de semirrectas.
 
+Tenemos un plano infinito con N posiciones ocupadas. El problema consiste en remover dichos puntos dibujando semirrectas desde una posición inicial en una dirección indicada, los puntos que sean atravesados por la semirrecta se consideran removidos. La cantidad de semirrectas necesarias para remover todos los puntos debe ser la mínima posible.
+Supongamos el siguiente plano con N = 3:
+
+\includegraphics[width=\textwidth]{ex_ej_3}
+
+
+Entonces se ve claramente que con dos rectas alcanza para solucionar el problema.
+
+
+
+
+
+
 \subsubsection{Ideas e implementación}
 Para resolver el problema usaremos la técnica de backtracking. Mediante el mismo iremos eligiendo de a 2 elementos dentro de un vector con las posiciones de los androides y calculando la pendiente de la recta que los une nos fijaremos si atraviesa posiciones de otros androides en su recorrido. Marcaremos todos estos puntos como androides destruidos.
 Una posible solución es encontrada cuando no quedan androides por destruir.
