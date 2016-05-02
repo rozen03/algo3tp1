@@ -1,50 +1,41 @@
+\newpage
 \subsubsection{Pseudocódigo}
-\begin{algorithm}[h!]
-\caption{Estructura del algoritmo Goloso}
+\begin{algorithm}[h]
+\caption{Estructura del algoritmo del problema 2}
 \begin{algorithmic}[1]
-	\Function{golosa}{}
-	\While{haya enemigos}
-	 \State {tomo el primer enemigo vivo}
-	 \While{haya enemigos restantes y tirar en ese enemigo mate al primer enemigo vivo}
-	  \State {avanzo al siguiente enemigo}
-	  \EndWhile
-	  \State {guardo el ultimo enemigo q terminaria matando al primero vivo si le tiro la genkidama}
-
-		\While{hay enemigos restantes y tirar en ese enemigo mata al ultimo enemigo que mate al primer enemigo vivo}
-		\State {avanzo al siguiente enemigo}
-        \EndWhile
-	\EndWhile
+	\Function{Genkidama}{\textbf{vector} Enemigos, \textbf{int} t}
+	\State{\textbf{vector} $Soluciones$}
+	\State{\textbf{int} $CantSoluciones$ := 0}
+	\For{$i$ := 0 hasta Len($Enemigos$)}
+		$j$ := $i$ + 1
+		\While{Pos($i$) $\leq$ Pos($j$) + $t$}
+			\State{$j++$}
+		\EndWhile
+		\State{$Soluciones$[$cantSoluciones$] := $j$ - 1}
+		\State{$CantSoluciones++$}
+		\State{$k$ := $j$ + 1}
+		\While{Pos($k$) $\leq$ Pos($j$) + $t$}
+			\State{$k++$}
+		\EndWhile
+		$i$ := $k$
+	\EndFor
+	\State{Print $cantSoluciones$}
+	\For{$i$ := 0 hasta $CantSoluciones$}
+		\State{Print $Soluciones$[$i$]}
+	\EndFor
 	\EndFunction
 \end{algorithmic}
 \end{algorithm}
-% PSEUDO CODIGO
-% Funcion Genkidama(vector Enemigos)
-% 	CantSoluciones = 0
-% 	Para i := 0 hasta Len(Enemigos)
-% 		j := i+1
-% 		Mientras (Pos(i) <= Pos(j) + t)
-% 			j++
-% 		Fin Mientras
-% 		Soluciones[cantSoluciones] := j-1
-% 		cantSoluciones++
-% 		k := j+1
-% 		Mientras(Pos(k) <= Pos(j) + t)
-% 			k++
-% 		Fin Mientras
-% 		i := k	
-% 	Fin Para
-
-% 	Print cantSoluciones
-% 	Para i := 0 hasta cantSoluciones
-% 		Print Soluciones[i]
-% 	Fin Para
-% Fin
 
 
-\subsubsection{Analisis}
+\subsubsection{Análisis}
 %yo creo q esto se entiende, decime vos xD
-El algoritmo tiene un ciclo principal con dos ciclos internos,  para cada enemigo, o bien es tomado en cuenta en el primer ciclo o bien en el segundo, salvo los casos donde el enemigo no mate al primer enemigo vivo ni este sea matado por el ultimo enemigo que mata al primer enemigo vivo.
+El algoritmo tiene un ciclo principal con dos ciclos internos. El ciclo principal va recorriendo el vector: el primer ciclo interno recorre los enemigos anteriores al que se elige para tirar la genkidama; el segundo recorre los posteriores que mueren a causa de esta genkidama. Entonces cada enemigo es o bien considerado en el primero o bien en el segundo ciclo, excepto en los casos donde el primer ciclo llega a un enemigo en el cual tirar la genkidama en su posición no mata al primero, entonces vuelve a ser considerado en el segundo ciclo para ver si la genkidama que finalmente se tira en el enemigo anterior lo mata a él.
 
-Para la complejidad del algoritmo, consideramos el mejor caso el caso en que si tiramos la genkidama en cualquiera de los puntos, termina matando a todos los enemigos. y daria una complejidad de $O(N)$
-El Peor caso seeria si tirar una genkidama en cualquier enemigo termine matando a ese enemigo y solo a ese enemigo, en ese caso cada enemigo termina siendo tomado en cuenta en ambos ciclos internos y en el ciclo principal, dando una complejidad de $O(3N) = O(N)$
-Y el caso promedio que es simplemente aleatorio, consideramos tambien que esta en el orden de $O(N)$
+Para evaluar la complejidad del algoritmo consideramos el mejor, peor y caso promedio.
+
+El mejor caso es el que se produce cuando tiramos la genkidama en cualquiera de los puntos, y esta termina matando a todos los enemigos. En este caso la cantidad de genkidamas mínima es 1 y daría una complejidad de $O(N)$, ya que el primer ciclo va pasando todo el vector hasta llegar al final y el segundo ciclo no tiene ningún caso que considerar. Esto sucede una sola vez, es decir que el ciclo principal solo se ejecuta una vez.
+
+El peor caso sería si al tirar una genkidama en cualquier enemigo se terminara matando a ese enemigo y sólo a ese enemigo. En este caso cada enemigo termina siendo tomado en cuenta en ambos ciclos internos y en el ciclo principal, dando una complejidad de $O(3N) = O(N)$.
+
+Y el caso promedio que es simplemente aleatorio también que está en el orden de $O(N)$. Esto es así porque es un caso peor que el mejor y mejor que el peor. Y como el peor y el mejor caso son ambos $O(N)$, no hay otra opción que el caso promedio también lo sea.

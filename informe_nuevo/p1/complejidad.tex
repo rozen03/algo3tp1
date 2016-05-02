@@ -1,16 +1,16 @@
 \newpage
 \subsubsection{Pseudocódigo}
 \begin{algorithm}
-\caption{Estructura del algoritmo de D\&C}
+\caption{Estructura del algoritmo del problema 1}
 \begin{algorithmic}[1]
-	\Function{D\&C}{}
-	\State{\textbf{Int} $rango$ := $[log_2(N)]$}
+	\Function{KaioKen}{\textbf{int} $N$}
+	\State{\textbf{int} $rango$ := $[log_2(N)]$}
 	\For{$i$ := $1$ hasta $rango$}
 		\For{$x$ := $0$ hasta $N$}
         \If{$x$ mod $2*i < 2*(i-1)$}
-            \State{Imprimir “1”}
+            \State{Print “1”}
         \Else
-        	\State{Imprimir “2”}
+        	\State{Print “2”}
         \EndIf
         \State{$x++$}
         \EndFor
