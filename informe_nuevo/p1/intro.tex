@@ -1,5 +1,5 @@
 \subsubsection{Explicación del problema}
-\noindent Tenemos N elementos (peleadores) y el problema consiste en dividir esos elementos en 2 grupos, generando diferentes instancias, cumpliendo con el siguiente criterio de división:
+\noindent Tenemos N elementos (peleadores) y el problema consiste en dividir esos elementos en 2 grupos, generando diferentes instancias; cumpliendo con el siguiente criterio de división:
 \begin{itemize}
 \item los elementos tienen que estar repartidos en tantas instancias como se requieran para que cada uno esté “enfrentado” a cada otro elemento al menos una vez considerando todas las instancias de salida que arroja el problema
 \item la cantidad de instancias generadas debe ser mínima
@@ -8,17 +8,14 @@
 Con “enfrentarse” nos referimos a que si tenemos únicamente 2 elementos, A y B, la manera de “enfrentarlos” va a ser repartiendo en un grupo el elemento A y en otro grupo el elemento B.
 Por ejemplo, si N = 3, llamando A, B y C a los elementos: 
 
-Para resolver el problema podemos enfrentar a A con B y C, de esta manera nos queda únicamente enfrentar a B con C. Podemos entonces dividir los 3 elementos en una segunda instancia pero esta vez con B por un lado; y A y C por el otro. Cabe destacar que también podemos ubicar a C por un lado; y A y B por otro, y también cumpliríamos con la resolución, pero no sería minimal que es lo que pide el problema, en ese caso o bien optamos por poner a B solo o bien optamos por poner a C solo.
-\subsubsection{Idea e implementacion}
-.\\
-Para resolver el problema usaremos la tecnica de Divide \& Conquer: \\
-	Didivir: Instancia separamos a los peleadores segun el resto de su indice respecto a $2^k$, siendo $k$ la instancia \\
-	Conquistar: Los agrupamos a los peleadores en 2 bandos, uno que agrupo a los luchadores segun el indice que cuyo resto sea menor a $2^k$ y el otro a los restantes. \\
+Para resolver el problema podemos enfrentar a A con B y C, de esta manera nos queda únicamente enfrentar a B con C. Podemos entonces dividir los 3 elementos en una segunda instancia pero esta vez con B por un lado y C por el otro. Entonces, hay dos soluciones posibles: o bien ponemos a C solo o bien a B solo.
 
- En la modelacion del problema, representamos cada peleador con un indice natural , y los separamos en el bando 1 o 2 Log(N) veces con N como la cantidad de peleadores.
-% no se si esto explica mejor
-% El criterio para separarlos es que los peleadores es:
-% tomo el indice del peleador
-% tomo el resto de dividir el indice por 2^k, donde k es el numero de instancia que estamos creando
-% si el resto es menor a 2^{k-1} el peleador va al  grupo 1 sino el peleador va al grupo 2
+\subsubsection{Idea e implementación}
+\noindent Para resolver el problema usaremos la técnica de Divide \& Conquer:
+
+En el modelo del problema representamos a cada peleador con un número natural. El número de instancias a ser generadas es $[log_{2}(N)]$, donde $N$ es la cantidad de peleadores. Para cada instancia correspondiente a $1 \leq k \leq N$:
+\begin{description}
+\item[Didivir] - Separamos a los peleadores segun el resto de su índice respecto a $2^k$.
+\item[Conquistar] - Agrupamos a los peleadores en 2 bandos: uno conteniendo a los peleadores cuyo resto es menor a $2^{k-1}$, y otro con los restantes
+\end{description}
 
