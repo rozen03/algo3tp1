@@ -1,20 +1,20 @@
+\newpage
 \subsubsection{Pseudocódigo}
-\begin{algorithm}[h!]
+\begin{algorithm}
 \caption{Estructura del algoritmo de D\&C}
 \begin{algorithmic}[1]
 	\Function{D\&C}{}
-	\State {defino la cantidad de instancias como la parte entera de $log_2(n)+2$}
-	\If{$N$ es potencia de $2^k$}
-		\State le resto 1 a la cantidad de instancias 
-	\EndIf
-	\For{k entre 1 y la cantidad de instancias}
-		\For{cada indice de peleador}
-        \If{el resto del indice de $2^k$ es menor a $2^{k-1}$}
-            \State el peleador va al primer bando
+	\State{\textbf{Int} $rango$ := $[log_2(N)]$}
+	\For{$i$ := $1$ hasta $rango$}
+		\For{$x$ := $0$ hasta $N$}
+        \If{$x$ mod $2*i < 2*(i-1)$}
+            \State{Imprimir “1”}
         \Else
-        	\State el peleador va al segundo bando
+        	\State{Imprimir “2”}
         \EndIf
-        \EndFor 
+        \State{$x++$}
+        \EndFor
+    \State{$i++$} 
 	\EndFor
 	\EndFunction
 \end{algorithmic}
@@ -34,6 +34,6 @@
 % 	I++
 % Fin Para
 
-\subsubsection{Analisis} 
+\subsubsection{Análisis} 
 %EL corrector dijo que esto estaba bien, si demostraba bien la correctitud, pero no se si hace falta mas  explicacion
-El algoritmo hace dos ciclos anidados el primero que lo hace $Log_2(N)$ veces y el otro $N$ veces, mientras que todas las operaciones adentro de ambos ciclos tiene costo de $O(1)$ dando una complejidad final de $O(N Log(N))$.
+El algoritmo hace dos ciclos anidados. El primero lo hace $log_2(N)$ veces y el otro $N$ veces, mientras que todas las operaciones adentro de ambos ciclos tienen costo de $O(1)$ dando una complejidad final de $O(NLog(N))$.
