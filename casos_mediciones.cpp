@@ -295,7 +295,8 @@ int restore(Android* a) {
 }
 
 
-void backtrack(bool conPoda) {
+void backtrack_conPoda() {
+	bool conPoda = true;
 	if (REMAINING_ANDROIDS == 0) {
 		BEST_KAMEHAMEHA = PARTIAL_KAMEHAMEHA;    //mejor solucion encontrada hasta ahora
 		SOLUTION.clear();
@@ -308,7 +309,7 @@ void backtrack(bool conPoda) {
 					PARTIAL_KAMEHAMEHA ++;
 					int res = destroy(&(*it));
 					REMAINING_ANDROIDS -= res;
-					backtrack(conPoda);
+					backtrack_conPoda();
 					res = restore(&(*it));  //volmemos a como estaba antes
 					REMAINING_ANDROIDS += res;
 					PARTIAL_KAMEHAMEHA --;
@@ -326,7 +327,7 @@ void backtrack(bool conPoda) {
 								PARTIAL_KAMEHAMEHA ++;
 								int res = destroy(&(*it), &(*itt)); //destruimos todos los androides en la recta entre it e itt
 								REMAINING_ANDROIDS -= res;
-								backtrack(conPoda);
+								backtrack_conPoda();
 								res = restore(&(*it), &(*itt)); //volmemos a como estaba antes
 								REMAINING_ANDROIDS += res;
 								PARTIAL_KAMEHAMEHA --;
@@ -339,6 +340,46 @@ void backtrack(bool conPoda) {
 	}
 }
 
+void backtrack_sinPoda() {
+	if (REMAINING_ANDROIDS == 0) {
+		BEST_KAMEHAMEHA = PARTIAL_KAMEHAMEHA;    //mejor solucion encontrada hasta ahora
+		SOLUTION.clear();
+		SOLUTION = enemies;
+	}
+	else if (REMAINING_ANDROIDS == 1) {
+			for (vector<Android>::iterator it = enemies.begin(); it != enemies.end(); ++it) { //O(n)
+				if (it->state == "active") {
+					PARTIAL_KAMEHAMEHA ++;
+					int res = destroy(&(*it));
+					REMAINING_ANDROIDS -= res;
+					backtrack_sinPoda();
+					res = restore(&(*it));  //volmemos a como estaba antes
+					REMAINING_ANDROIDS += res;
+					PARTIAL_KAMEHAMEHA --;
+				}
+			}
+		
+	}
+	else {
+		for (vector<Android>::iterator it = enemies.begin(); it != enemies.end(); ++it) { //O(n)
+				for (vector<Android>::iterator itt = enemies.begin(); itt != enemies.end(); ++itt) { //O(n)
+						if (it != itt) { //poda: no tiene sentido iterar sobre si mismo
+								PARTIAL_KAMEHAMEHA ++;
+								int res = destroy(&(*it), &(*itt)); //destruimos todos los androides en la recta entre it e itt
+								REMAINING_ANDROIDS -= res;
+								backtrack_sinPoda();
+								res = restore(&(*it), &(*itt)); //volmemos a como estaba antes
+								REMAINING_ANDROIDS += res;
+								PARTIAL_KAMEHAMEHA --;
+							
+						}
+					
+				}
+			
+		}
+	}
+}
+
 
 
 
@@ -347,10 +388,18 @@ void backtrack(bool conPoda) {
 int kamehameha(int n, int x[], int y[], bool conPoda) {
 
 	REMAINING_ANDROIDS = n;
+	BEST_KAMEHAMEHA = 9999;
+	PARTIAL_KAMEHAMEHA = 0;
+	enemies.clear();
+	SOLUTION.clear();
 	for (int i = 0; i < n; i++) {
 		enemies.push_back(Android(x[i], y[i]));
 	}
-	backtrack(conPoda);
+	if (conPoda) {
+		backtrack_conPoda();
+	} else {
+		backtrack_sinPoda();
+	}
 	// cout << BEST_KAMEHAMEHA << '\n';
 	// vector<string> output(BEST_KAMEHAMEHA);
 	// vector<int> defeated(BEST_KAMEHAMEHA);
