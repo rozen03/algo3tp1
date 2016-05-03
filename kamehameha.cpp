@@ -21,7 +21,7 @@ int main(int argc, char* argv[]) {
     REMAINING_ANDROIDS = n;
     for (int i = 0; i < n; i++) {
         int x, y;
-        cin >> x;
+        cin >> x;z
         cin >> y;
         enemies.push_back(Android(x, y));
     }
@@ -150,7 +150,7 @@ void backtrack() {
                                 PARTIAL_KAMEHAMEHA ++;
                                 int res = destroy(&(*it), &(*itt)); //destruimos todos los androides en la recta entre it e itt
                                 REMAINING_ANDROIDS -= res;
-                                backtrack();
+                                backtrack();z
                                 res = restore(&(*it), &(*itt)); //volmemos a como estaba antes
                                 REMAINING_ANDROIDS += res;
                                 PARTIAL_KAMEHAMEHA --;
